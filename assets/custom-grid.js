@@ -226,4 +226,124 @@
 
   // Exposed so steps B and C can extend behavior on the same object.
   window.CustomGrid = { current: current, els: els };
+
+  /* ---------- add to cart (step C) ---------- */
+  var bundleHandle = section.getAttribute('data-bundle-handle');
+
+  els.addBtn.addEventListener('click', function () {
+    var variant = current.variant;
+    if (!variant || !variant.available) return;
+
+    // Build the line items. Start with the chosen variant.
+    var items = [{ id: variant.id, quantity: 1 }];
+
+    // Rule: if the chosen variant's options include BOTH "Black" and
+    // "Medium" (in any option position), also add the bundle product.
+    if (bundleHandle && matchesBundleRule(variant)) {
+      // Resolve the bundle product's first variant id from its own
+      // embedded JSON if it's on the page; otherwise fetch by handle.
+      addWithBundle(items);
+    } else {
+      submitCart(items);
+    }
+  });
+
+  // Case-insensitive check that the variant carries both trigger values.
+  function matchesBundleRule(variant) {
+    var opts = (variant.options || []).map(function (o) {
+      return String(o).toLowerCase();
+    });
+    return opts.indexOf('black') !== -1 && opts.indexOf('medium') !== -1;
+  }
+
+  function addWithBundle(items) {
+    // Fetch the bundle product as JSON to get a valid variant id.
+    fetch('/products/' + bundleHandle + '.js')
+      .then(function (res) {
+        if (!res.ok) throw new Error('Bundle product not found');
+        return res.json();
+      })
+      .then(function (product) {
+        var firstAvailable = (product.variants || []).filter(function (v) {
+          return v.available;
+        })[0] || product.variants[0];
+        if (firstAvailable) {
+          items.push({ id: firstAvailable.id, quantity: 1 });
+        }
+        return submitCart(items);
+      })
+      .catch(function (err) {
+        // If the bundle can't be added, still add the main product.
+        console.warn('Bundle add skipped:', err.message);
+        return submitCart(items);
+      });
+  }
+
+  function submitCart(items) {
+    setAddLabel('ADDING...');
+    els.addBtn.disabled = true;
+
+    fetch('/cart/add.js', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ items: items })
+    })
+      .then(function (res) {
+        if (!res.ok) throw new Error('Add to cart failed');
+        return res.json();
+      })
+      .then(function () {
+        closePopup();
+        refreshCartAndOpenDrawer();
+      })
+      .catch(function (err) {
+        console.error(err);
+        setAddLabel('TRY AGAIN');
+        els.addBtn.disabled = false;
+      });
+  }
+
+  /* ---------- cart drawer + count refresh ---------- */
+  function refreshCartAndOpenDrawer() {
+    // Update Dawn's cart bubble and drawer contents, then open it.
+    fetch('/?section_id=cart-drawer')
+      .then(function (res) { return res.text(); })
+      .then(function (html) {
+        var parsed = new DOMParser().parseFromString(html, 'text/html');
+
+        var newDrawer = parsed.querySelector('cart-drawer');
+        var oldDrawer = document.querySelector('cart-drawer');
+        if (newDrawer && oldDrawer) {
+          oldDrawer.innerHTML = newDrawer.innerHTML;
+        }
+
+        updateCartCount();
+        openDawnDrawer();
+      })
+      .catch(function () {
+        // Fallback: at least update the count.
+        updateCartCount();
+      });
+  }
+
+  function updateCartCount() {
+    fetch('/cart.js')
+      .then(function (res) { return res.json(); })
+      .then(function (cart) {
+        document
+          .querySelectorAll('.cart-count-bubble span[aria-hidden="true"]')
+          .forEach(function (el) { el.textContent = cart.item_count; });
+      })
+      .catch(function () {});
+  }
+
+  function openDawnDrawer() {
+    var drawer = document.querySelector('cart-drawer');
+    if (drawer && typeof drawer.open === 'function') {
+      drawer.open();
+    } else if (drawer) {
+      drawer.classList.add('active');
+      drawer.removeAttribute('inert');
+    }
+  }
 })();
