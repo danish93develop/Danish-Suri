@@ -24,8 +24,8 @@
       aria-expanded="false"
       aria-controls="CbDrawer-{{ section.id }}"
       data-cb-menu-toggle>
-      <svg width="20" height="14" viewBox="0 0 20 14" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <path d="M0 1h20M0 7h20M0 13h20" stroke="currentColor" stroke-width="1.5"/>
+      <svg width="26" height="16" viewBox="0 0 26 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M0 1h26M0 8h26M0 15h26" stroke="currentColor" stroke-width="2"/>
       </svg>
     </button>
 
@@ -43,15 +43,29 @@
     {%- endif -%}
   </div>
 
-  {% comment %} Mobile navigation drawer, toggled by the hamburger {% endcomment %}
-  <nav class="cb__drawer" id="CbDrawer-{{ section.id }}" data-cb-drawer aria-hidden="true">
-    <button class="cb__drawer-close" type="button" aria-label="Close menu" data-cb-menu-close>&times;</button>
-    <ul class="cb__drawer-list">
-      {%- for link in section.settings.menu.links -%}
-        <li><a href="{{ link.url }}" class="cb__drawer-link">{{ link.title | escape }}</a></li>
-      {%- endfor -%}
-    </ul>
-  </nav>
+  {% comment %}
+    Mobile drawer. Reveals the top-bar content hidden on mobile:
+    the announcement line and the CHOOSE GIFT button (per the design).
+  {% endcomment %}
+  <div class="cb__drawer" id="CbDrawer-{{ section.id }}" data-cb-drawer aria-hidden="true">
+    <div class="cb__drawer-head">
+      <button class="cb__drawer-close" type="button" aria-label="Close menu" data-cb-menu-close>&times;</button>
+      <span class="cb__logo cb__drawer-logo">{{ section.settings.logo_text | escape }}</span>
+    </div>
+
+    <div class="cb__drawer-body">
+      {%- if section.settings.announcement_text != blank -%}
+        <p class="cb__drawer-text">{{ section.settings.announcement_text | escape }}</p>
+      {%- endif -%}
+
+      {%- if section.settings.gift_label != blank -%}
+        <a href="{{ section.settings.gift_link | default: '#' }}" class="cb__btn cb__btn--gift cb__drawer-gift">
+          <span class="cb__btn-label">{{ section.settings.gift_label | escape }}</span>
+          {%- render 'icon-arrow-right-custom' -%}
+        </a>
+      {%- endif -%}
+    </div>
+  </div>
   <div class="cb__drawer-overlay" data-cb-drawer-overlay hidden></div>
 
   <div class="cb__hero">
@@ -93,7 +107,10 @@
         <h1 class="cb__heading">{{ section.settings.heading | escape }}</h1>
       {%- endif -%}
       {%- if section.settings.description != blank -%}
-        <div class="cb__description">{{ section.settings.description }}</div>
+        <div class="cb__description cb__description--desktop">{{ section.settings.description }}</div>
+      {%- endif -%}
+      {%- if section.settings.description_mobile != blank -%}
+        <div class="cb__description cb__description--mobile">{{ section.settings.description_mobile }}</div>
       {%- endif -%}
       {%- if section.settings.shop_label != blank -%}
         <a href="{{ section.settings.shop_link | default: routes.all_products_collection_url }}"
@@ -134,7 +151,6 @@
     { "type": "text", "id": "announcement_text", "label": "Announcement text", "default": "Find the ideal gift for your loved ones." },
     { "type": "text", "id": "gift_label", "label": "Gift button label", "default": "CHOOSE GIFT" },
     { "type": "url", "id": "gift_link", "label": "Gift button link" },
-    { "type": "link_list", "id": "menu", "label": "Mobile menu", "default": "main-menu" },
     { "type": "header", "content": "Hero" },
     { "type": "image_picker", "id": "image_desktop", "label": "Illustration image (desktop)" },
     { "type": "image_picker", "id": "image_mobile", "label": "Illustration image (mobile)" },
@@ -144,6 +160,12 @@
       "id": "description",
       "label": "Description",
       "default": "<p>Discover Joy: Your Ultimate Holiday Gift Destination. Explore our curated selection and find the perfect gifts to delight your loved ones this holiday season.</p>"
+    },
+    {
+      "type": "richtext",
+      "id": "description_mobile",
+      "label": "Description (mobile)",
+      "default": "<p>Discover Joy: Your Ultimate Holiday Gift Destination.</p>"
     },
     { "type": "text", "id": "shop_label", "label": "Shop button label", "default": "SHOP NOW" },
     { "type": "url", "id": "shop_link", "label": "Shop button link" },

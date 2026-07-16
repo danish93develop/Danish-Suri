@@ -196,6 +196,10 @@
   margin: 0;
 }
 
+.cb__description--mobile {
+  display: none;
+}
+
 /* ---------- 3. Bottom strip ---------- */
 
 .cb__strip {
@@ -289,6 +293,14 @@
     font-size: 15px;
   }
 
+  .cb__description--desktop {
+    display: none;
+  }
+
+  .cb__description--mobile {
+    display: block;
+  }
+
   .cb__btn--shop-desktop {
     display: none;
   }
@@ -345,49 +357,69 @@
   }
 }
 
-/* ---------- Mobile menu drawer ---------- */
+/* ---------- Mobile drawer (announcement + gift button) ---------- */
 
 .cb__drawer {
   position: fixed;
   top: 0;
   left: 0;
+  right: 0;
   z-index: 20;
-  width: min(320px, 80vw);
-  height: 100vh;
-  padding: 60px 28px;
-  background: #ffffff;
-  transform: translateX(-100%);
+  background: var(--cb-color-bar);
+  transform: translateY(-100%);
   transition: transform 0.3s ease;
 }
 
 .cb__drawer.is-open {
-  transform: translateX(0);
+  transform: translateY(0);
+}
+
+.cb__drawer-head {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 70px;
+  padding: 0 20px;
+  background: #ffffff;
+}
+
+.cb__drawer-logo {
+  position: static;
+  transform: none;
+  font-size: 20px;
 }
 
 .cb__drawer-close {
   position: absolute;
-  top: 14px;
-  right: 18px;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
   border: 0;
   background: none;
-  font-size: 28px;
+  font-size: 26px;
   line-height: 1;
   cursor: pointer;
 }
 
-.cb__drawer-list {
-  margin: 0;
-  padding: 0;
-  list-style: none;
+.cb__drawer-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  padding: 22px 20px 28px;
 }
 
-.cb__drawer-link {
-  display: block;
-  padding: 12px 0;
-  font-size: 16px;
-  letter-spacing: 0.04em;
-  color: inherit;
-  text-decoration: none;
+.cb__drawer-text {
+  margin: 0;
+  font-size: 15px;
+  text-align: center;
+}
+
+.cb__drawer-gift {
+  display: inline-flex;
+  width: 232px;
+  height: 46px;
 }
 
 .cb__drawer-overlay {
