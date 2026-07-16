@@ -312,26 +312,29 @@
 
   /* ---------- cart drawer + count refresh ---------- */
   function refreshCartAndOpenDrawer() {
-    // Dawn renders an "is-empty" drawer when the cart loaded empty, so
-    // we replace the whole cart-drawer node and clear that class before
-    // opening, otherwise the first add shows an empty drawer.
+    // Ask Dawn to render its own cart sections, then replace the whole
+    // <cart-drawer> and bubble nodes. Replacing the entire element (not
+    // just innerHTML) lets Dawn's custom elements re-initialize, so the
+    // native quantity and remove buttons keep working.
     fetch('/?sections=cart-drawer,cart-icon-bubble')
       .then(function (res) { return res.json(); })
       .then(function (sections) {
-        var oldDrawer = document.querySelector('cart-drawer');
-        if (sections['cart-drawer'] && oldDrawer) {
+        if (sections['cart-drawer']) {
+          var oldDrawer = document.querySelector('cart-drawer');
           var parsed = new DOMParser().parseFromString(sections['cart-drawer'], 'text/html');
-          var newInner = parsed.querySelector('cart-drawer');
-          if (newInner) {
-            oldDrawer.innerHTML = newInner.innerHTML;
-            oldDrawer.classList.remove('is-empty');
+          var newDrawer = parsed.querySelector('cart-drawer');
+          if (oldDrawer && newDrawer) {
+            oldDrawer.replaceWith(newDrawer);
           }
         }
 
-        var bubble = document.getElementById('cart-icon-bubble');
-        if (sections['cart-icon-bubble'] && bubble) {
+        if (sections['cart-icon-bubble']) {
+          var oldBubble = document.getElementById('cart-icon-bubble');
           var parsedBubble = new DOMParser().parseFromString(sections['cart-icon-bubble'], 'text/html');
-          bubble.innerHTML = parsedBubble.getElementById('cart-icon-bubble').innerHTML;
+          var newBubble = parsedBubble.getElementById('cart-icon-bubble');
+          if (oldBubble && newBubble) {
+            oldBubble.replaceWith(newBubble);
+          }
         }
 
         openDawnDrawer();
