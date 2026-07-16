@@ -179,16 +179,16 @@
 
 .cb__heading {
   margin: 0;
-  font-size: 4.8vw;             /* 69px @ 1440 */
+  font-size: 7.5rem;             /* 69px @ 1440 */
   font-weight: 500;
   line-height: 1;
-  white-space: nowrap;
+  white-space: normal;
 }
 
 .cb__description {
-  margin: 4vw 0 3.25vw;         /* gaps measured from the frame */
+  margin: 3vw 0 3.25vw;         /* gaps measured from the frame */
   width: 29.4vw;
-  font-size: 1.25vw;            /* 18px @ 1440 */
+  font-size: 1.95rem;            /* 18px @ 1440 */
   line-height: 1.6;
 }
 
@@ -262,11 +262,6 @@
     width: auto;
     padding: 36px 24px 20px;
     text-align: center;
-  }
-
-  .cb__heading {
-    font-size: 34px;
-    white-space: normal;
   }
 
   .cb__description {
