@@ -61,9 +61,13 @@
   function renderOptions(product) {
     els.options.innerHTML = '';
 
-    product.options.forEach(function (optionName, index) {
-      // product.options is a list of names; values live on variants.
-      var values = uniqueValues(product, index);
+    // options_with_values is reliably present in product JSON and
+    // carries each option's name plus its list of values.
+    var optionList = product.options_with_values || [];
+
+    optionList.forEach(function (option) {
+      var optionName = option.name;
+      var values = option.values;
 
       var group = document.createElement('div');
       group.className = 'cg__opt';
@@ -85,20 +89,17 @@
     });
   }
 
-  function uniqueValues(product, optionIndex) {
-    var seen = [];
-    product.variants.forEach(function (v) {
-      var val = v.options[optionIndex];
-      if (seen.indexOf(val) === -1) seen.push(val);
-    });
-    return seen;
+  // Values may be plain strings or objects with a name; normalize.
+  function valueName(val) {
+    return typeof val === 'string' ? val : (val && val.name) || '';
   }
 
   function buildButtons(optionName, values) {
     var wrap = document.createElement('div');
     wrap.className = 'cg__opt-values';
 
-    values.forEach(function (val) {
+    values.forEach(function (raw) {
+      var val = valueName(raw);
       var btn = document.createElement('button');
       btn.type = 'button';
       btn.className = 'cg__opt-btn';
@@ -128,7 +129,8 @@
     placeholder.selected = true;
     select.appendChild(placeholder);
 
-    values.forEach(function (val) {
+    values.forEach(function (raw) {
+      var val = valueName(raw);
       var opt = document.createElement('option');
       opt.value = val;
       opt.textContent = val;
