@@ -23,7 +23,7 @@
 
   // Holds the product currently shown in the popup and the
   // shopper's picked option values, keyed by option name.
-  var current = { product: null, selected: {} };
+  var current = { product: null, selected: {}, variant: null };
 
   /* ---------- money formatting ---------- */
   function formatMoney(cents) {
@@ -36,6 +36,7 @@
   function openPopup(product) {
     current.product = product;
     current.selected = {};
+    current.variant = null;
 
     els.img.src = product.image || '';
     els.img.alt = product.title;
@@ -144,8 +145,62 @@
     return select;
   }
 
-  // Placeholder until step B wires variant matching.
-  function onSelectionChange() {}
+  /* ---------- variant matching (step B) ----------
+     Find the variant whose option values match every current
+     selection, then update price, availability, and the add button. */
+  function findMatchingVariant(product, selected) {
+    var optionNames = (product.options || []).map(function (o) { return o.name; });
+
+    return product.variants.filter(function (variant) {
+      // variant.options is an array positionally aligned with optionNames.
+      return optionNames.every(function (name, i) {
+        return selected[name] === variant.options[i];
+      });
+    })[0] || null;
+  }
+
+  function allOptionsChosen(product, selected) {
+    return (product.options || []).every(function (o) {
+      return selected[o.name];
+    });
+  }
+
+  function onSelectionChange() {
+    var product = current.product;
+    if (!product) return;
+
+    // Not everything picked yet: keep the button off.
+    if (!allOptionsChosen(product, current.selected)) {
+      current.variant = null;
+      els.addBtn.disabled = true;
+      return;
+    }
+
+    var variant = findMatchingVariant(product, current.selected);
+    current.variant = variant;
+
+    if (!variant) {
+      // Combination doesn't exist.
+      els.addBtn.disabled = true;
+      setAddLabel('UNAVAILABLE');
+      return;
+    }
+
+    // Reflect the matched variant's price and stock.
+    els.price.textContent = formatMoney(variant.price);
+    if (variant.available) {
+      els.addBtn.disabled = false;
+      setAddLabel('ADD TO CART');
+    } else {
+      els.addBtn.disabled = true;
+      setAddLabel('SOLD OUT');
+    }
+  }
+
+  function setAddLabel(text) {
+    var label = els.addBtn.querySelector('[data-cg-add-label]');
+    if (label) label.textContent = text;
+  }
 
   /* ---------- wire up ---------- */
   section.querySelectorAll('[data-cg-open]').forEach(function (btn) {

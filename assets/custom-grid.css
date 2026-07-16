@@ -188,6 +188,7 @@
   font-size: 14px;
   text-align: left;
   cursor: pointer;
+  transition: background 0.3s ease, color 0.3s ease;
 }
 
 .cg__opt-btn:last-child {
@@ -195,9 +196,8 @@
 }
 
 .cg__opt-btn.is-selected {
-  position: relative;
-  box-shadow: inset 3px 0 0 #000000;
-  font-weight: 500;
+  background: #000000;
+  color: #ffffff;
 }
 
 /* Size: native select with custom chevron */
