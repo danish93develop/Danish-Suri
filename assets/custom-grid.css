@@ -31,7 +31,7 @@
 .cg__img {
   display: block;
   width: 100%;
-  aspect-ratio: 1 / 1.18;
+  aspect-ratio: 1 / 1.02;
   object-fit: cover;
 }
 
