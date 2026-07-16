@@ -1,0 +1,82 @@
+/* ------------------------------------------------------------------
+   Custom Grid layout
+   Measured from the design frame: content 74% wide, 3 columns,
+   ~1.5% gap, square-ish product images.
+   ------------------------------------------------------------------ */
+
+.cg {
+  max-width: 74%;
+  margin: 0 auto;
+  padding: 90px 0;
+  font-family: var(--cb-font-sans, sans-serif);
+}
+
+.cg__heading {
+  margin: 0 0 48px;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 40px;
+  font-weight: 400;
+}
+
+.cg__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+}
+
+.cg__item {
+  position: relative;
+}
+
+.cg__img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1.18;
+  object-fit: cover;
+}
+
+.cg__img--placeholder {
+  background: #f2f2f2;
+}
+
+/* + icon: positioned per block via inline left/top from the schema */
+.cg__plus {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: #ffffff;
+  color: #000000;
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
+  transition: transform 0.2s ease;
+}
+
+.cg__plus:hover {
+  transform: translate(-50%, -50%) scale(1.1);
+}
+
+@media screen and (max-width: 749px) {
+  .cg {
+    max-width: 100%;
+    padding: 48px 16px;
+  }
+
+  .cg__heading {
+    font-size: 28px;
+    text-align: center;
+  }
+
+  .cg__grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+}
