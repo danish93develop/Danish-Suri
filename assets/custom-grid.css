@@ -187,10 +187,10 @@
 }
 
 .cg__opt-btn {
+  position: relative;
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 12px 12px;
+  padding: 14px 12px 14px 20px;
   border: none;
   border-right: 1px solid #000000;
   background: #ffffff;
@@ -203,11 +203,13 @@
   font-family: 'Jost';
 }
 
+/* Vertical colour bar flush to the button's left edge (Figma style) */
 .cg__opt-swatch {
-  width: 16px;
-  height: 16px;
-  flex-shrink: 0;
-  border: 1px solid rgba(0, 0, 0, 0.25);
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 7px;
 }
 
 .cg__opt-btn:last-child {
