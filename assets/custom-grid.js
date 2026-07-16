@@ -94,16 +94,56 @@
     return typeof val === 'string' ? val : (val && val.name) || '';
   }
 
+  // Map common colour names to CSS values for the swatch. Unknown
+  // names fall back to the name itself (CSS understands many), then
+  // to a neutral grey via the border so the swatch is always visible.
+  var COLOR_MAP = {
+    black: '#000000',
+    white: '#ffffff',
+    grey: '#9e9e9e',
+    gray: '#9e9e9e',
+    red: '#c0392b',
+    blue: '#2740c4',
+    green: '#2e7d32',
+    yellow: '#f4d03f',
+    orange: '#e67e22',
+    pink: '#e91e8c',
+    purple: '#7b2fbe',
+    brown: '#795548',
+    beige: '#e8d8b0',
+    navy: '#1a237e',
+    cream: '#f5f0e1'
+  };
+
+  function swatchColor(name) {
+    var key = String(name).trim().toLowerCase();
+    return COLOR_MAP[key] || key || '#cccccc';
+  }
+
   function buildButtons(optionName, values) {
     var wrap = document.createElement('div');
     wrap.className = 'cg__opt-values';
+
+    var isColor = /colou?r/i.test(optionName);
 
     values.forEach(function (raw) {
       var val = valueName(raw);
       var btn = document.createElement('button');
       btn.type = 'button';
       btn.className = 'cg__opt-btn';
-      btn.textContent = val;
+
+      if (isColor) {
+        var sw = document.createElement('span');
+        sw.className = 'cg__opt-swatch';
+        sw.style.backgroundColor = swatchColor(val);
+        btn.appendChild(sw);
+      }
+
+      var text = document.createElement('span');
+      text.className = 'cg__opt-btn-text';
+      text.textContent = val;
+      btn.appendChild(text);
+
       btn.addEventListener('click', function () {
         current.selected[optionName] = val;
         wrap.querySelectorAll('.cg__opt-btn').forEach(function (b) {

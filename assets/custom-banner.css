@@ -2,8 +2,6 @@
 
 /* ------------------------------------------------------------------
    Custom Banner styles
-   All hero measurements are taken from the design frame and expressed
-   in vw so the section scales exactly like the Figma preview:
    - hero aspect ratio 1920:1040
    - content left offset 9.84% of viewport width
    - heading top at 55.2% of hero height
@@ -37,6 +35,11 @@
 .cb__menu {
   display: none; /* mobile only */
   line-height: 0;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: #000000;
 }
 
 .cb__logo {
@@ -72,9 +75,6 @@
 }
 
 /*
- * Hover animation (matches the Figma prototype recording):
- * background sweeps left to right into the opposite color,
- * label and arrow swap color with it.
  *   SHOP NOW:    black  -> yellow, text white -> black
  *   CHOOSE GIFT: yellow -> black,  text black -> white
  */
@@ -175,7 +175,7 @@
   position: absolute;
   z-index: 1;
   left: 9.84%;
-  top: 55.2%;
+  top: 50%;
   width: 34.5vw;
 }
 
