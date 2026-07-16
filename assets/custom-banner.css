@@ -217,12 +217,27 @@
   display: none;
 }
 
+
+
 /* ------------------------------------------------------------------
-   Mobile: centered heading and description above the illustration,
-   CTA overlaid on the illustration, different strip text.
-   Fixed px here because the mobile frame does not fluid-scale.
+    Responsive
    ------------------------------------------------------------------ */
 
+/* ---------- tab ---------- */ 
+
+ @media screen and (max-width: 1023px) {
+  .cb__heading {
+    font-size: 35px;
+ }
+ .cb__description {
+    font-size: 16px;
+ }
+ .cb__description {
+    margin: 2vw 0;
+}
+  } 
+
+/* ---------- Mobile ---------- */
 @media screen and (max-width: 749px) {
 
   .cb__topbar {
@@ -237,6 +252,10 @@
     display: block;
   }
 
+  .cb__menu svg {
+    width: 26px;
+    height: 26px;
+}
   .cb__announcement,
   .cb__btn--gift {
     display: none;
@@ -294,7 +313,7 @@
   .cb__btn--shop-mobile {
     display: inline-flex;
     position: absolute;
-    top: 50%;
+    bottom: 0;
     left: 50%;
     transform: translate(-50%, -50%);
     width: 200px;
@@ -311,7 +330,7 @@
   }
 
   .cb__strip-text {
-    font-size: 12px;
+    font-size: 14px;
   }
 
   .cb__strip-text--desktop {
@@ -320,6 +339,9 @@
 
   .cb__strip-text--mobile {
     display: block;
+  }
+  .cb__heading{
+    font-size:30px;
   }
 }
 

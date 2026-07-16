@@ -225,6 +225,7 @@
 }
 .cg__opt-select:hover,.cg__opt-select:focus {
     box-shadow:none;
+    outline:none;
 }
 
 /* Add to cart: reuses banner .cb__btn sweep; full width here */
