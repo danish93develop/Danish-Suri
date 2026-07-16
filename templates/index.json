@@ -29,6 +29,72 @@
         "strip_text_mobile": "SUSTAINABLE, ETHICALLY MADE ACTIVEWEAR"
       }
     },
+    "custom_grid_zmgmVr": {
+      "type": "custom-grid",
+      "blocks": {
+        "product_Lx8TpR": {
+          "type": "product",
+          "settings": {
+            "product": "black-leather-bag",
+            "icon_x": 50,
+            "icon_y": 50
+          }
+        },
+        "product_kCfhfU": {
+          "type": "product",
+          "settings": {
+            "product": "blue-silk-tuxedo",
+            "icon_x": 50,
+            "icon_y": 50
+          }
+        },
+        "product_gkETGe": {
+          "type": "product",
+          "settings": {
+            "product": "chequered-red-shirt",
+            "icon_x": 50,
+            "icon_y": 50
+          }
+        },
+        "product_BPVAQ9": {
+          "type": "product",
+          "settings": {
+            "product": "classic-leather-jacket",
+            "icon_x": 50,
+            "icon_y": 50
+          }
+        },
+        "product_yeM6mH": {
+          "type": "product",
+          "settings": {
+            "product": "classic-varsity-top",
+            "icon_x": 50,
+            "icon_y": 50
+          }
+        },
+        "product_zAjji8": {
+          "type": "product",
+          "settings": {
+            "product": "dark-denim-top",
+            "icon_x": 50,
+            "icon_y": 50
+          }
+        }
+      },
+      "block_order": [
+        "product_Lx8TpR",
+        "product_kCfhfU",
+        "product_gkETGe",
+        "product_BPVAQ9",
+        "product_yeM6mH",
+        "product_zAjji8"
+      ],
+      "name": "Custom Grid",
+      "settings": {
+        "heading": "Tisso vison in the wild",
+        "bundle_handle": "dark-winter-jacket"
+      }
+    },
     "image_banner": {
       "type": "image-banner",
       "blocks": {
@@ -71,6 +137,7 @@
     },
     "featured_collection": {
       "type": "featured-collection",
+      "disabled": true,
       "settings": {
         "collection": "all",
         "products_to_show": 8,
@@ -100,6 +167,7 @@
   },
   "order": [
     "custom_banner_kF9GR8",
+    "custom_grid_zmgmVr",
     "image_banner",
     "featured_collection"
   ]
