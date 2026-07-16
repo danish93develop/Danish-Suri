@@ -175,7 +175,7 @@
   position: absolute;
   z-index: 1;
   left: 9.84%;
-  top: 50%;
+  top: 55%;
   width: 34.5vw;
 }
 
@@ -241,7 +241,10 @@
  .cb__description {
     margin: 2vw 0;
 }
-  } 
+.cb__content {
+  top: 50%;
+}
+} 
 
 /* ---------- Mobile ---------- */
 @media screen and (max-width: 749px) {
