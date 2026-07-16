@@ -7,13 +7,6 @@
 {{ 'custom-banner.css' | asset_url | stylesheet_tag }}
 <script src="{{ 'custom-banner.js' | asset_url }}" defer></script>
 
-{% style %}
-  {{ section.settings.banner_font | font_face: font_display: 'swap' }}
-  .section-custom-banner {
-    --cb-font-sans: {{ section.settings.banner_font.family }}, {{ section.settings.banner_font.fallback_families }};
-  }
-{% endstyle %}
-
 <div class="cb" id="CustomBanner-{{ section.id }}">
 
   <div class="cb__topbar">
@@ -139,13 +132,6 @@
   "tag": "section",
   "class": "section-custom-banner",
   "settings": [
-    { "type": "header", "content": "Typography" },
-    {
-      "type": "font_picker",
-      "id": "banner_font",
-      "label": "Banner font",
-      "default": "Jost"
-    },
     { "type": "header", "content": "Top bar" },
     { "type": "text", "id": "logo_text", "label": "Logo text", "default": "TISSO VISON" },
     { "type": "text", "id": "announcement_text", "label": "Announcement text", "default": "Find the ideal gift for your loved ones." },
