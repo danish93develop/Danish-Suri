@@ -248,12 +248,19 @@
     }
   });
 
-  // Case-insensitive check that the variant carries both trigger values.
+  // Rule trigger: the variant must carry a "black" colour AND a
+  // "medium" size. Sizes may be stored spelled out ("Medium") or
+  // abbreviated ("M"), so both forms are accepted.
+  var BLACK_VALUES = ['black'];
+  var MEDIUM_VALUES = ['medium', 'm'];
+
   function matchesBundleRule(variant) {
     var opts = (variant.options || []).map(function (o) {
-      return String(o).toLowerCase();
+      return String(o).trim().toLowerCase();
     });
-    return opts.indexOf('black') !== -1 && opts.indexOf('medium') !== -1;
+    var hasBlack = opts.some(function (v) { return BLACK_VALUES.indexOf(v) !== -1; });
+    var hasMedium = opts.some(function (v) { return MEDIUM_VALUES.indexOf(v) !== -1; });
+    return hasBlack && hasMedium;
   }
 
   function addWithBundle(items) {
@@ -305,23 +312,31 @@
 
   /* ---------- cart drawer + count refresh ---------- */
   function refreshCartAndOpenDrawer() {
-    // Update Dawn's cart bubble and drawer contents, then open it.
-    fetch('/?section_id=cart-drawer')
-      .then(function (res) { return res.text(); })
-      .then(function (html) {
-        var parsed = new DOMParser().parseFromString(html, 'text/html');
-
-        var newDrawer = parsed.querySelector('cart-drawer');
+    // Dawn renders an "is-empty" drawer when the cart loaded empty, so
+    // we replace the whole cart-drawer node and clear that class before
+    // opening, otherwise the first add shows an empty drawer.
+    fetch('/?sections=cart-drawer,cart-icon-bubble')
+      .then(function (res) { return res.json(); })
+      .then(function (sections) {
         var oldDrawer = document.querySelector('cart-drawer');
-        if (newDrawer && oldDrawer) {
-          oldDrawer.innerHTML = newDrawer.innerHTML;
+        if (sections['cart-drawer'] && oldDrawer) {
+          var parsed = new DOMParser().parseFromString(sections['cart-drawer'], 'text/html');
+          var newInner = parsed.querySelector('cart-drawer');
+          if (newInner) {
+            oldDrawer.innerHTML = newInner.innerHTML;
+            oldDrawer.classList.remove('is-empty');
+          }
         }
 
-        updateCartCount();
+        var bubble = document.getElementById('cart-icon-bubble');
+        if (sections['cart-icon-bubble'] && bubble) {
+          var parsedBubble = new DOMParser().parseFromString(sections['cart-icon-bubble'], 'text/html');
+          bubble.innerHTML = parsedBubble.getElementById('cart-icon-bubble').innerHTML;
+        }
+
         openDawnDrawer();
       })
       .catch(function () {
-        // Fallback: at least update the count.
         updateCartCount();
       });
   }
