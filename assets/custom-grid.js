@@ -290,18 +290,36 @@
     setAddLabel('ADDING...');
     els.addBtn.disabled = true;
 
+    var drawer = document.querySelector('cart-drawer');
+
+    // Request the sections Dawn's own drawer knows how to render, so we
+    // can hand them straight to its native renderContents() method
+    // instead of swapping HTML ourselves (which breaks its buttons).
+    var body = { items: items };
+    if (drawer && drawer.getSectionsToRender) {
+      body.sections = drawer.getSectionsToRender().map(function (s) { return s.id; });
+      body.sections_url = window.location.pathname;
+    }
+
     fetch('/cart/add.js', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ items: items })
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify(body)
     })
       .then(function (res) {
         if (!res.ok) throw new Error('Add to cart failed');
         return res.json();
       })
-      .then(function () {
+      .then(function (data) {
         closePopup();
-        refreshCartAndOpenDrawer();
+        if (drawer && typeof drawer.renderContents === 'function') {
+          // Dawn re-renders and opens the drawer itself, keeping all
+          // native quantity/remove behavior intact.
+          drawer.renderContents(data);
+        } else {
+          openDawnDrawer();
+        }
+        updateCartCount();
       })
       .catch(function (err) {
         console.error(err);
@@ -310,40 +328,7 @@
       });
   }
 
-  /* ---------- cart drawer + count refresh ---------- */
-  function refreshCartAndOpenDrawer() {
-    // Ask Dawn to render its own cart sections, then replace the whole
-    // <cart-drawer> and bubble nodes. Replacing the entire element (not
-    // just innerHTML) lets Dawn's custom elements re-initialize, so the
-    // native quantity and remove buttons keep working.
-    fetch('/?sections=cart-drawer,cart-icon-bubble')
-      .then(function (res) { return res.json(); })
-      .then(function (sections) {
-        if (sections['cart-drawer']) {
-          var oldDrawer = document.querySelector('cart-drawer');
-          var parsed = new DOMParser().parseFromString(sections['cart-drawer'], 'text/html');
-          var newDrawer = parsed.querySelector('cart-drawer');
-          if (oldDrawer && newDrawer) {
-            oldDrawer.replaceWith(newDrawer);
-          }
-        }
-
-        if (sections['cart-icon-bubble']) {
-          var oldBubble = document.getElementById('cart-icon-bubble');
-          var parsedBubble = new DOMParser().parseFromString(sections['cart-icon-bubble'], 'text/html');
-          var newBubble = parsedBubble.getElementById('cart-icon-bubble');
-          if (oldBubble && newBubble) {
-            oldBubble.replaceWith(newBubble);
-          }
-        }
-
-        openDawnDrawer();
-      })
-      .catch(function () {
-        updateCartCount();
-      });
-  }
-
+  /* ---------- cart count (fallback) ---------- */
   function updateCartCount() {
     fetch('/cart.js')
       .then(function (res) { return res.json(); })
