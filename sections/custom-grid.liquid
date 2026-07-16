@@ -40,9 +40,44 @@
             aria-label="Quick view {{ product.title | escape }}"
             style="left: {{ block.settings.icon_x }}%; top: {{ block.settings.icon_y }}%;"
             data-cg-open
-            data-product='{{ product | json | escape }}'>
+            data-product-id="{{ product.id }}">
             <span aria-hidden="true">+</span>
           </button>
+
+          {%- comment -%}
+            Clean, purpose-built product data. Building it explicitly
+            (rather than `product | json`) guarantees the popup gets the
+            image URL, price in cents, options, and every variant's
+            option values, none of which `product | json` reliably emits.
+          {%- endcomment -%}
+          <script type="application/json" data-cg-product-json="{{ product.id }}">
+            {
+              "id": {{ product.id | json }},
+              "title": {{ product.title | json }},
+              "description": {{ product.description | json }},
+              "price": {{ product.price | json }},
+              "image": {{ product.featured_image | image_url: width: 400 | json }},
+              "options": [
+                {%- for option in product.options_with_values -%}
+                  {
+                    "name": {{ option.name | json }},
+                    "values": {{ option.values | json }}
+                  }{%- unless forloop.last -%},{%- endunless -%}
+                {%- endfor -%}
+              ],
+              "variants": [
+                {%- for variant in product.variants -%}
+                  {
+                    "id": {{ variant.id | json }},
+                    "title": {{ variant.title | json }},
+                    "available": {{ variant.available | json }},
+                    "price": {{ variant.price | json }},
+                    "options": {{ variant.options | json }}
+                  }{%- unless forloop.last -%},{%- endunless -%}
+                {%- endfor -%}
+              ]
+            }
+          </script>
         {%- else -%}
           <div class="cg__img cg__img--placeholder">
             {{ 'product-1' | placeholder_svg_tag: 'cg__placeholder-svg' }}

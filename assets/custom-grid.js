@@ -37,7 +37,7 @@
     current.product = product;
     current.selected = {};
 
-    els.img.src = product.featured_image || (product.images && product.images[0]) || '';
+    els.img.src = product.image || '';
     els.img.alt = product.title;
     els.title.textContent = product.title;
     els.price.textContent = formatMoney(product.price);
@@ -61,9 +61,8 @@
   function renderOptions(product) {
     els.options.innerHTML = '';
 
-    // options_with_values is reliably present in product JSON and
-    // carries each option's name plus its list of values.
-    var optionList = product.options_with_values || [];
+    // Our JSON emits an "options" array of { name, values }.
+    var optionList = product.options || [];
 
     optionList.forEach(function (option) {
       var optionName = option.name;
@@ -151,8 +150,11 @@
   /* ---------- wire up ---------- */
   section.querySelectorAll('[data-cg-open]').forEach(function (btn) {
     btn.addEventListener('click', function () {
+      var id = btn.getAttribute('data-product-id');
+      var dataEl = section.querySelector('[data-cg-product-json="' + id + '"]');
+      if (!dataEl) return;
       try {
-        openPopup(JSON.parse(btn.getAttribute('data-product')));
+        openPopup(JSON.parse(dataEl.textContent));
       } catch (e) {
         console.error('Could not parse product data', e);
       }
