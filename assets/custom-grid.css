@@ -31,7 +31,7 @@
 .cg__img {
   display: block;
   width: 100%;
-  aspect-ratio: 1 / 1.02;
+  aspect-ratio: 1 / 0.92;
   object-fit: cover;
 }
 
@@ -78,6 +78,10 @@
   .cg__grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 12px;
+  }
+
+  .cg__img {
+    aspect-ratio: 1 / 1.05;
   }
 }
 
