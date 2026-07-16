@@ -1,0 +1,385 @@
+/* ------------------------------------------------------------------
+   Custom Banner styles
+   All hero measurements are taken from the design frame and expressed
+   in vw so the section scales exactly like the Figma preview:
+   - hero aspect ratio 1920:1040
+   - content left offset 9.84% of viewport width
+   - heading top at 55.2% of hero height
+   ------------------------------------------------------------------ */
+
+.section-custom-banner {
+  --cb-font-sans: 'Jost', 'Century Gothic', 'Poppins', sans-serif;
+  --cb-color-text: #000000;
+  --cb-color-bar: #f5f5f5;
+  --cb-color-yellow: #fff544;
+}
+
+.cb {
+  font-family: var(--cb-font-sans);
+  color: var(--cb-color-text);
+  background: #ffffff;
+}
+
+/* ---------- 1. Top bar ---------- */
+
+.cb__topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  height: 4.45vw;               /* 64px @ 1440 */
+  padding: 0 3.1vw;
+  background: var(--cb-color-bar);
+}
+
+.cb__menu {
+  display: none; /* mobile only */
+  line-height: 0;
+}
+
+.cb__logo {
+  font-size: 1.53vw;            /* 22px @ 1440 */
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-decoration: none;
+  color: inherit;
+  white-space: nowrap;
+}
+
+.cb__announcement {
+  margin: 0;
+  font-size: 1.11vw;            /* 16px @ 1440 */
+  text-align: center;
+  flex: 1;
+}
+
+/* ---------- Buttons (shared) ---------- */
+
+.cb__btn {
+  position: relative;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1vw;
+  font-size: 0.9vw;             /* 13px @ 1440 */
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+/*
+ * Hover animation (matches the Figma prototype recording):
+ * background sweeps left to right into the opposite color,
+ * label and arrow swap color with it.
+ *   SHOP NOW:    black  -> yellow, text white -> black
+ *   CHOOSE GIFT: yellow -> black,  text black -> white
+ */
+.cb__btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.35s ease;
+}
+
+.cb__btn:hover::before,
+.cb__btn:focus-visible::before {
+  transform: scaleX(1);
+}
+
+.cb__btn .cb__btn-label,
+.cb__btn .cb__icon-arrow {
+  position: relative;
+  z-index: 1;
+  transition: color 0.35s ease;
+}
+
+.cb__icon-arrow {
+  width: 1.95vw;
+  height: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cb__btn::before,
+  .cb__btn .cb__btn-label,
+  .cb__btn .cb__icon-arrow {
+    transition: none;
+  }
+}
+
+.cb__btn--gift {
+  width: 14.3vw;                /* 206px @ 1440 */
+  height: 3vw;                  /* 43px @ 1440 */
+  background: var(--cb-color-yellow);
+  color: #000000;
+}
+
+.cb__btn--gift::before {
+  background: #000000;
+}
+
+.cb__btn--gift:hover,
+.cb__btn--gift:focus-visible {
+  color: #ffffff;
+}
+
+.cb__btn--shop {
+  width: 13.5vw;                /* 194px @ 1440 */
+  height: 3vw;
+  background: #000000;
+  color: #ffffff;
+}
+
+.cb__btn--shop::before {
+  background: var(--cb-color-yellow);
+}
+
+.cb__btn--shop:hover,
+.cb__btn--shop:focus-visible {
+  color: #000000;
+}
+
+/* ---------- 2. Hero ---------- */
+
+.cb__hero {
+  position: relative;
+  /* Height comes from the illustration's own ratio so the text
+     always lands on the same clear pocket of the drawing */
+  aspect-ratio: 1920 / 1040;
+  overflow: hidden;
+}
+
+.cb__illustration {
+  position: absolute;
+  inset: 0;
+}
+
+.cb__illustration-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+}
+
+.cb__illustration-img--mobile,
+.cb__btn--shop-mobile {
+  display: none;
+}
+
+.cb__content {
+  position: absolute;
+  z-index: 1;
+  left: 9.84%;
+  top: 55.2%;
+  width: 34.5vw;
+}
+
+.cb__heading {
+  margin: 0;
+  font-size: 4.8vw;             /* 69px @ 1440 */
+  font-weight: 500;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.cb__description {
+  margin: 4vw 0 3.25vw;         /* gaps measured from the frame */
+  width: 29.4vw;
+  font-size: 1.25vw;            /* 18px @ 1440 */
+  line-height: 1.6;
+}
+
+.cb__description p {
+  margin: 0;
+}
+
+/* ---------- 3. Bottom strip ---------- */
+
+.cb__strip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 2.34vw;               /* 34px @ 1440 */
+  background: var(--cb-color-bar);
+}
+
+.cb__strip-text {
+  margin: 0;
+  font-size: 0.97vw;            /* 14px @ 1440 */
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.cb__strip-text--mobile {
+  display: none;
+}
+
+/* ------------------------------------------------------------------
+   Mobile: centered heading and description above the illustration,
+   CTA overlaid on the illustration, different strip text.
+   Fixed px here because the mobile frame does not fluid-scale.
+   ------------------------------------------------------------------ */
+
+@media screen and (max-width: 749px) {
+
+  .cb__topbar {
+    position: relative;
+    justify-content: flex-start;
+    height: 70px;
+    padding: 0 20px;
+    background: #ffffff;
+  }
+
+  .cb__menu {
+    display: block;
+  }
+
+  .cb__announcement,
+  .cb__btn--gift {
+    display: none;
+  }
+
+  .cb__logo {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 20px;
+  }
+
+  .cb__hero {
+    display: flex;
+    flex-direction: column;
+    aspect-ratio: auto;
+    overflow: visible;
+  }
+
+  .cb__content {
+    position: static;
+    order: 1;
+    width: auto;
+    padding: 36px 24px 20px;
+    text-align: center;
+  }
+
+  .cb__heading {
+    font-size: 34px;
+    white-space: normal;
+  }
+
+  .cb__description {
+    width: auto;
+    margin: 16px 0 0;
+    font-size: 15px;
+  }
+
+  .cb__btn--shop-desktop {
+    display: none;
+  }
+
+  .cb__illustration {
+    order: 2;
+    position: relative;
+    inset: auto;
+    min-height: 420px;
+  }
+
+  .cb__illustration-img--desktop {
+    display: none;
+  }
+
+  .cb__illustration-img--mobile {
+    display: block;
+    position: absolute;
+    inset: 0;
+  }
+
+  .cb__btn--shop-mobile {
+    display: inline-flex;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 200px;
+    height: 52px;
+    font-size: 13px;
+  }
+
+  .cb__btn--shop-mobile .cb__icon-arrow {
+    width: 28px;
+  }
+
+  .cb__strip {
+    height: 40px;
+  }
+
+  .cb__strip-text {
+    font-size: 12px;
+  }
+
+  .cb__strip-text--desktop {
+    display: none;
+  }
+
+  .cb__strip-text--mobile {
+    display: block;
+  }
+}
+
+/* ---------- Mobile menu drawer ---------- */
+
+.cb__drawer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 20;
+  width: min(320px, 80vw);
+  height: 100vh;
+  padding: 60px 28px;
+  background: #ffffff;
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+}
+
+.cb__drawer.is-open {
+  transform: translateX(0);
+}
+
+.cb__drawer-close {
+  position: absolute;
+  top: 14px;
+  right: 18px;
+  border: 0;
+  background: none;
+  font-size: 28px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.cb__drawer-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cb__drawer-link {
+  display: block;
+  padding: 12px 0;
+  font-size: 16px;
+  letter-spacing: 0.04em;
+  color: inherit;
+  text-decoration: none;
+}
+
+.cb__drawer-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 19;
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.cb-drawer-open {
+  overflow: hidden;
+}
