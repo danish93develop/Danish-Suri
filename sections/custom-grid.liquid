@@ -1,0 +1,121 @@
+{% comment %}
+  Custom Grid: 6 selectable products in a 3-column layout.
+  Each block places a "+" icon at an editable position over the image.
+  Clicking it opens a shared popup, populated client-side from the
+  product JSON printed below (no extra requests).
+{% endcomment %}
+
+{{ 'custom-grid.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'custom-grid.js' | asset_url }}" defer></script>
+
+<div
+  class="cg"
+  id="CustomGrid-{{ section.id }}"
+  data-bundle-handle="{{ section.settings.bundle_handle }}">
+
+  {%- if section.settings.heading != blank -%}
+    <h2 class="cg__heading">{{ section.settings.heading | escape }}</h2>
+  {%- endif -%}
+
+  <div class="cg__grid">
+    {%- for block in section.blocks -%}
+      {%- assign product = block.settings.product -%}
+      <div class="cg__item" {{ block.shopify_attributes }}>
+        {%- if product != blank -%}
+          <img
+            class="cg__img"
+            src="{{ product.featured_image | image_url: width: 800 }}"
+            srcset="{{ product.featured_image | image_url: width: 500 }} 500w,
+                    {{ product.featured_image | image_url: width: 800 }} 800w,
+                    {{ product.featured_image | image_url: width: 1000 }} 1000w"
+            sizes="(max-width: 749px) 50vw, 33vw"
+            alt="{{ product.featured_image.alt | escape }}"
+            loading="lazy"
+            width="{{ product.featured_image.width }}"
+            height="{{ product.featured_image.height }}">
+
+          <button
+            class="cg__plus"
+            type="button"
+            aria-label="Quick view {{ product.title | escape }}"
+            style="left: {{ block.settings.icon_x }}%; top: {{ block.settings.icon_y }}%;"
+            data-cg-open
+            data-product='{{ product | json | escape }}'>
+            <span aria-hidden="true">+</span>
+          </button>
+        {%- else -%}
+          <div class="cg__img cg__img--placeholder">
+            {{ 'product-1' | placeholder_svg_tag: 'cg__placeholder-svg' }}
+          </div>
+        {%- endif -%}
+      </div>
+    {%- endfor -%}
+  </div>
+
+  {% comment %} Shared popup shell, filled in by JS on open {% endcomment %}
+  <div class="cg__popup-overlay" data-cg-overlay hidden>
+    <div class="cg__popup" role="dialog" aria-modal="true" aria-label="Product quick view" data-cg-popup>
+      <button class="cg__popup-close" type="button" aria-label="Close" data-cg-close>&times;</button>
+
+      <div class="cg__popup-top">
+        <img class="cg__popup-img" src="" alt="" data-cg-img>
+        <div class="cg__popup-info">
+          <h3 class="cg__popup-title" data-cg-title></h3>
+          <p class="cg__popup-price" data-cg-price></p>
+          <div class="cg__popup-desc" data-cg-desc></div>
+        </div>
+      </div>
+
+      <div class="cg__popup-options" data-cg-options></div>
+
+      <button class="cg__popup-add cb__btn" type="button" data-cg-add disabled>
+        <span class="cb__btn-label" data-cg-add-label>ADD TO CART</span>
+        {%- render 'icon-arrow-right-custom' -%}
+      </button>
+    </div>
+  </div>
+
+</div>
+
+{% schema %}
+{
+  "name": "Custom Grid",
+  "tag": "section",
+  "class": "section-custom-grid",
+  "max_blocks": 6,
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Tisso vison in the wild" },
+    {
+      "type": "text",
+      "id": "bundle_handle",
+      "label": "Auto-add product handle",
+      "info": "Product added automatically when a Black + Medium variant is chosen.",
+      "default": "dark-winter-jacket"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product",
+      "name": "Product",
+      "settings": [
+        { "type": "product", "id": "product", "label": "Product" },
+        { "type": "range", "id": "icon_x", "label": "Icon horizontal position", "min": 0, "max": 100, "step": 1, "unit": "%", "default": 50 },
+        { "type": "range", "id": "icon_y", "label": "Icon vertical position", "min": 0, "max": 100, "step": 1, "unit": "%", "default": 50 }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Grid",
+      "blocks": [
+        { "type": "product" },
+        { "type": "product" },
+        { "type": "product" },
+        { "type": "product" },
+        { "type": "product" },
+        { "type": "product" }
+      ]
+    }
+  ]
+}
+{% endschema %}
