@@ -1,5 +1,6 @@
 /**
  * Custom Grid popup.
+ * Vanilla JS (assignment requirement). No external libraries.
  *
  * Step A: open/close the popup and render the clicked product's
  * details and options (color buttons + size select) from the
@@ -43,11 +44,15 @@
     els.price.textContent = formatMoney(product.price);
     els.desc.innerHTML = product.description || '';
 
-    renderOptions(product);
-
+    // Make the popup visible first so option buttons have real
+    // dimensions when the sliding pill measures them.
     overlay.hidden = false;
     document.body.classList.add('cg-popup-open');
+
+    renderOptions(product);
+
     els.addBtn.disabled = true;
+    setAddLabel('ADD TO CART');
   }
 
   function closePopup() {
@@ -125,7 +130,20 @@
 
     var isColor = /colou?r/i.test(optionName);
 
-    values.forEach(function (raw) {
+    // Sliding highlight that moves under the selected button.
+    var pill = document.createElement('span');
+    pill.className = 'cg__opt-pill';
+    wrap.appendChild(pill);
+
+    var buttons = [];
+
+    function movePill(btn) {
+      // Position and size the pill to sit exactly under this button.
+      pill.style.width = btn.offsetWidth + 'px';
+      pill.style.transform = 'translateX(' + btn.offsetLeft + 'px)';
+    }
+
+    values.forEach(function (raw, index) {
       var val = valueName(raw);
       var btn = document.createElement('button');
       btn.type = 'button';
@@ -145,14 +163,23 @@
 
       btn.addEventListener('click', function () {
         current.selected[optionName] = val;
-        wrap.querySelectorAll('.cg__opt-btn').forEach(function (b) {
-          b.classList.remove('is-selected');
-        });
+        buttons.forEach(function (b) { b.classList.remove('is-selected'); });
         btn.classList.add('is-selected');
+        movePill(btn);
         onSelectionChange();
       });
+
+      buttons.push(btn);
       wrap.appendChild(btn);
     });
+
+    // Pre-select the first value (prototype shows one selected by default)
+    // and place the pill once the element has real dimensions.
+    if (buttons.length) {
+      buttons[0].classList.add('is-selected');
+      current.selected[optionName] = valueName(values[0]);
+      requestAnimationFrame(function () { movePill(buttons[0]); });
+    }
 
     return wrap;
   }
