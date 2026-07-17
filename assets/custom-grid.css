@@ -1,9 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600&display=swap');
 
 /* ------------------------------------------------------------------
    Custom Grid layout
-   Measured from the design frame: content 74% wide, 3 columns,
-   ~1.5% gap, square-ish product images.
    ------------------------------------------------------------------ */
 
 .cg {
@@ -155,12 +152,12 @@
     margin: 0 0 8px;
     font-size: 16px;
     color: #000;
-    font-family: 'Jost';
+    font-family: 'var(--font-body-style)';
 }
 
 .cg__popup-desc {
   margin: 0;
-  font-size: 12px;
+  font-size: 14px;
   line-height: 1.5;
   color: #444444;
 }
@@ -174,7 +171,7 @@
     display: block;
     margin-bottom: 8px;
     font-size: 14px;
-    font-family: 'Jost';
+    font-family: 'var(--font-body-style)';
     color: #333333;
 }
 
@@ -200,7 +197,7 @@
   text-align: left;
   cursor: pointer;
   transition: background 0.3s ease, color 0.3s ease;
-  font-family: 'Jost';
+  font-family: 'var(--font-body-style)';
 }
 
 /* Vertical colour bar flush to the button's left edge (Figma style) */
@@ -239,7 +236,7 @@
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1' height='48' viewBox='0 0 1 48'%3E%3Crect width='1' height='48' fill='%23000'/%3E%3C/svg%3E");
   background-repeat: no-repeat, no-repeat;
   background-position: right 18px center, right 48px center;
-  font-family: 'Jost';
+  font-family: 'var(--font-body-style)';
 }
 .cg__opt-select:hover,
 .cg__opt-select:focus {
@@ -256,7 +253,7 @@
   color: #ffffff;
   border: none;
   font-size: 16px;
-  font-family: 'Jost';
+  font-family: 'var(--font-body-style)';
   letter-spacing: 0.08em;
 }
 

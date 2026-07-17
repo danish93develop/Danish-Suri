@@ -1,6 +1,5 @@
 /**
  * Custom Grid popup.
- * Vanilla JS (assignment requirement). No external libraries.
  *
  * Step A: open/close the popup and render the clicked product's
  * details and options (color buttons + size select) from the
