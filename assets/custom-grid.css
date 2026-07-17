@@ -4,6 +4,9 @@
 
 .cg {
   padding: 90px 0;
+  font-family: var(--font-body-family);
+  color: rgb(var(--color-foreground));
+  background: rgb(var(--color-background));
 }
 
 .cg__inner {
@@ -14,6 +17,7 @@
 
 .cg__heading {
   margin: 0 0 48px;
+  font-family: var(--font-heading-family);
   font-size: 36px;
   font-weight: 400;
 }
