@@ -1,0 +1,172 @@
+{% comment %}
+  Custom Banner: top bar (logo / announcement / gift CTA + mobile menu drawer),
+  hero with illustration and content, bottom strip.
+  All texts marked editable in the brief are exposed in the schema.
+{% endcomment %}
+
+{{ 'custom-banner.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'custom-banner.js' | asset_url }}" defer></script>
+
+<div class="cb color-{{ section.settings.color_scheme }}" id="CustomBanner-{{ section.id }}">
+
+  <div class="cb__topbar">
+    <button
+      class="cb__menu"
+      type="button"
+      aria-label="Open menu"
+      aria-expanded="false"
+      aria-controls="CbDrawer-{{ section.id }}"
+      data-cb-menu-toggle>
+      <svg width="20" height="12" viewBox="0 0 20 12" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M1 6H19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M1 1H19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M1 11H19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </button>
+
+    <a href="{{ routes.root_url }}" class="cb__logo">{{ section.settings.logo_text | escape }}</a>
+
+    {%- if section.settings.announcement_text != blank -%}
+      <p class="cb__announcement">{{ section.settings.announcement_text | escape }}</p>
+    {%- endif -%}
+
+    {%- if section.settings.gift_label != blank -%}
+      <a href="{{ section.settings.gift_link | default: '#' }}" class="cb__btn button cb__btn--gift">
+        <span class="cb__btn-label">{{ section.settings.gift_label | escape }}</span>
+        {%- render 'icon-arrow-right-custom' -%}
+      </a>
+    {%- endif -%}
+  </div>
+
+  {% comment %}
+    Mobile drawer. Reveals the top-bar content hidden on mobile:
+    the announcement line and the CHOOSE GIFT button (per the design).
+  {% endcomment %}
+  <div class="cb__drawer" id="CbDrawer-{{ section.id }}" data-cb-drawer aria-hidden="true">
+    <div class="cb__drawer-head">
+      <button class="cb__drawer-close" type="button" aria-label="Close menu" data-cb-menu-close>&times;</button>
+      <span class="cb__logo cb__drawer-logo">{{ section.settings.logo_text | escape }}</span>
+    </div>
+
+    <div class="cb__drawer-body">
+      {%- if section.settings.announcement_text != blank -%}
+        <p class="cb__drawer-text">{{ section.settings.announcement_text | escape }}</p>
+      {%- endif -%}
+
+      {%- if section.settings.gift_label != blank -%}
+        <a href="{{ section.settings.gift_link | default: '#' }}" class="cb__btn button cb__btn--gift cb__drawer-gift">
+          <span class="cb__btn-label">{{ section.settings.gift_label | escape }}</span>
+          {%- render 'icon-arrow-right-custom' -%}
+        </a>
+      {%- endif -%}
+    </div>
+  </div>
+  <div class="cb__drawer-overlay" data-cb-drawer-overlay hidden></div>
+
+  <div class="cb__hero">
+    <div class="cb__illustration" role="presentation">
+      {%- if section.settings.image_desktop != blank -%}
+        <img
+          class="cb__illustration-img cb__illustration-img--desktop"
+          src="{{ section.settings.image_desktop | image_url: width: 1920 }}"
+          srcset="{{ section.settings.image_desktop | image_url: width: 1280 }} 1280w,
+                  {{ section.settings.image_desktop | image_url: width: 1920 }} 1920w,
+                  {{ section.settings.image_desktop | image_url: width: 2560 }} 2560w"
+          sizes="100vw"
+          alt=""
+          loading="eager"
+          width="{{ section.settings.image_desktop.width }}"
+          height="{{ section.settings.image_desktop.height }}">
+      {%- endif -%}
+      {%- if section.settings.image_mobile != blank -%}
+        <img
+          class="cb__illustration-img cb__illustration-img--mobile"
+          src="{{ section.settings.image_mobile | image_url: width: 800 }}"
+          alt=""
+          loading="eager"
+          width="{{ section.settings.image_mobile.width }}"
+          height="{{ section.settings.image_mobile.height }}">
+      {%- endif -%}
+
+      {%- if section.settings.shop_label != blank -%}
+        <a href="{{ section.settings.shop_link | default: routes.all_products_collection_url }}"
+           class="cb__btn cb__btn--shop cb__btn--shop-mobile button button--primary">
+          <span class="cb__btn-label">{{ section.settings.shop_label | escape }}</span>
+          {%- render 'icon-arrow-right-custom' -%}
+        </a>
+      {%- endif -%}
+    </div>
+
+    <div class="cb__content">
+      {%- if section.settings.heading != blank -%}
+        <h1 class="cb__heading">{{ section.settings.heading | escape }}</h1>
+      {%- endif -%}
+      {%- if section.settings.description != blank -%}
+        <div class="cb__description cb__description--desktop">{{ section.settings.description }}</div>
+      {%- endif -%}
+      {%- if section.settings.description_mobile != blank -%}
+        <div class="cb__description cb__description--mobile">{{ section.settings.description_mobile }}</div>
+      {%- endif -%}
+      {%- if section.settings.shop_label != blank -%}
+        <a href="{{ section.settings.shop_link | default: routes.all_products_collection_url }}"
+           class="cb__btn cb__btn--shop cb__btn--shop-desktop button button--primary">
+          <span class="cb__btn-label">{{ section.settings.shop_label | escape }}</span>
+          {%- render 'icon-arrow-right-custom' -%}
+        </a>
+      {%- endif -%}
+    </div>
+  </div>
+
+  {%- if section.settings.strip_text != blank or section.settings.strip_text_mobile != blank -%}
+    <div class="cb__strip">
+      <p class="cb__strip-text cb__strip-text--desktop">{{ section.settings.strip_text | escape }}</p>
+      <p class="cb__strip-text cb__strip-text--mobile">
+        {{ section.settings.strip_text_mobile | default: section.settings.strip_text | escape }}
+      </p>
+    </div>
+  {%- endif -%}
+
+</div>
+
+{% schema %}
+{
+  "name": "Custom Banner",
+  "tag": "section",
+  "class": "section-custom-banner",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    { "type": "header", "content": "Top bar" },
+    { "type": "text", "id": "logo_text", "label": "Logo text", "default": "TISSO VISON" },
+    { "type": "text", "id": "announcement_text", "label": "Announcement text", "default": "Find the ideal gift for your loved ones." },
+    { "type": "text", "id": "gift_label", "label": "Gift button label", "default": "CHOOSE GIFT" },
+    { "type": "url", "id": "gift_link", "label": "Gift button link" },
+    { "type": "header", "content": "Hero" },
+    { "type": "image_picker", "id": "image_desktop", "label": "Illustration image (desktop)" },
+    { "type": "image_picker", "id": "image_mobile", "label": "Illustration image (mobile)" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "The Gift Guide" },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>Discover Joy: Your Ultimate Holiday Gift Destination. Explore our curated selection and find the perfect gifts to delight your loved ones this holiday season.</p>"
+    },
+    {
+      "type": "richtext",
+      "id": "description_mobile",
+      "label": "Description (mobile)",
+      "default": "<p>Discover Joy: Your Ultimate Holiday Gift Destination.</p>"
+    },
+    { "type": "text", "id": "shop_label", "label": "Shop button label", "default": "SHOP NOW" },
+    { "type": "url", "id": "shop_link", "label": "Shop button link" },
+    { "type": "header", "content": "Bottom strip" },
+    { "type": "text", "id": "strip_text", "label": "Strip text (desktop)", "default": "SUSTAINABLE, ETHICALLY MADE CLOTHES IN SIZES XXS TO 6XL" },
+    { "type": "text", "id": "strip_text_mobile", "label": "Strip text (mobile)", "default": "SUSTAINABLE, ETHICALLY MADE ACTIVEWEAR" }
+  ],
+  "presets": [{ "name": "Custom Banner" }]
+}
+{% endschema %}

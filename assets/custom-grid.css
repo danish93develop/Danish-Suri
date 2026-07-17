@@ -1,0 +1,315 @@
+/* ------------------------------------------------------------------
+   Custom Grid layout
+   ------------------------------------------------------------------ */
+
+.cg {
+  padding: 90px 0;
+  font-family: var(--font-body-family);
+  color: rgb(var(--color-foreground));
+  background: rgb(var(--color-background));
+}
+
+.cg__inner {
+  /* Dawn's page-width handles max-width + side padding.
+     margin auto keeps it centered. */
+  margin: 0 auto;
+}
+
+.cg__heading {
+  margin: 0 0 48px;
+  font-family: var(--font-heading-family);
+  font-size: 36px;
+  font-weight: 400;
+}
+
+.cg__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+}
+
+.cg__item {
+  position: relative;
+}
+.cg__img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 0.92;
+  object-fit: cover;
+  height: 100%;
+}
+
+.cg__img--placeholder {
+  background: #f2f2f2;
+}
+
+/* + icon: positioned per block via inline left/top from the schema */
+.cg__plus {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: #ffffff;
+  color: #000000;
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
+  transition: transform 0.2s ease;
+}
+
+.cg__plus:hover {
+  transform: translate(-50%, -50%) scale(1.1);
+}
+
+@media screen and (max-width: 749px) {
+  .cg {
+    padding: 48px 0;
+  }
+
+  .cg__heading {
+    font-size: 28px;
+    text-align: center;
+  }
+
+  .cg__grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .cg__img {
+    aspect-ratio: 1 / 1.05;
+  }
+}
+
+/* ------------------------------------------------------------------
+   Popup (compact card matching the Figma spec: 310px wide,
+   small type, tight spacing; scrolls on short viewports)
+   ------------------------------------------------------------------ */
+
+.cg__popup-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.35);
+  padding: 20px;
+}
+
+.cg__popup-overlay[hidden] {
+  display: none;
+}
+
+.cg__popup {
+  position: relative;
+  width: 100%;
+  max-width: 310px;
+  max-height: 92vh;
+  overflow-y: auto;
+  background: #ffffff;
+  padding: 34px 20px 22px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.18);
+}
+
+.cg__popup-close {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  border: none;
+  background: none;
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+  color: #000000;
+}
+
+.cg__popup-top {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.cg__popup-img {
+  flex: 0 0 112px;
+  width: 112px;
+  height: 132px;
+  object-fit: cover;
+}
+
+.cg__popup-info {
+  min-width: 0;
+}
+
+.cg__popup-title {
+  margin: 0 0 6px;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.cg__popup-price {
+  margin: 0 0 6px;
+  font-size: 15px;
+  color: #000;
+}
+
+.cg__popup-desc {
+  margin: 0;
+  font-size: 11.5px;
+  line-height: 1.45;
+  color: #444444;
+}
+
+/* Option groups injected by JS */
+.cg__opt {
+  margin-bottom: 12px;
+}
+
+.cg__opt-label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 12px;
+  color: #333333;
+}
+
+/* Color/size button row with a sliding highlight pill */
+.cg__opt-values {
+  position: relative;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  border: 1px solid #000000;
+}
+
+/* The moving black highlight; JS sets its width and translateX */
+.cg__opt-pill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  background: #000000;
+  transform: translateX(0);
+  transition: transform 0.35s ease, width 0.35s ease;
+  z-index: 0;
+}
+
+.cg__opt-btn {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  padding: 9px 10px 9px 16px;
+  border: none;
+  border-right: 1px solid #000000;
+  background: transparent;
+  color: #000000;
+  font: inherit;
+  font-size: 13px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.cg__opt-btn .cg__opt-btn-text {
+  position: relative;
+  z-index: 1;
+  transition: color 0.35s ease;
+}
+
+.cg__opt-btn.is-selected .cg__opt-btn-text {
+  color: #ffffff;
+}
+
+.cg__opt-swatch {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 5px;
+  z-index: 2;
+  border-right: 1px solid rgba(0, 0, 0, 0.35);
+}
+
+.cg__opt-btn:last-child {
+  border-right: none;
+}
+
+/* Size: native select with a divider line + chevron on the right */
+.cg__opt-select {
+  width: 100%;
+  padding: 10px 46px 10px 12px;
+  border: 1px solid #000000;
+  background-color: #ffffff;
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='7' viewBox='0 0 12 7'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23000' fill='none' stroke-width='1.4'/%3E%3C/svg%3E"),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1' height='48' viewBox='0 0 1 48'%3E%3Crect width='1' height='48' fill='%23000'/%3E%3C/svg%3E");
+  background-repeat: no-repeat, no-repeat;
+  background-position: right 14px center, right 40px center;
+}
+
+.cg__opt-select:hover,
+.cg__opt-select:focus {
+  box-shadow: none;
+  outline: none;
+}
+
+/* Add to cart on Dawn's .button: scheme colors, padding-based size.
+   Dawn's min-size and border chrome reset so the compact popup holds. */
+/* Add to cart on Dawn's .button: scheme colors, padding-based size.
+   Scoped under .cg so these win over the banner's .cb__btn.button
+   base regardless of stylesheet order. */
+.cg .cg__popup-add.button {
+  width: 100%;
+  min-width: 0;
+  min-height: 0;
+  padding: 15px 10px;
+  margin-top: 10px;
+  border: none;
+  border-radius: 0;
+  font-size: 13px;
+  gap: 12px;
+  letter-spacing: 0.08em;
+}
+
+.cg .cg__popup-add.button::before {
+  z-index: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.cg .cg__popup-add.button::after {
+  box-shadow: none;
+  content: none;
+}
+
+.cg__popup-add::before {
+  background: #333333;
+}
+
+.cg__popup-add:hover:not([disabled]),
+.cg__popup-add:focus-visible:not([disabled]) {
+  color: #ffffff;
+}
+
+.cg__popup-add[disabled] {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+@media screen and (max-width: 749px) {
+  .cg__popup {
+    max-width: 300px;
+  }
+}

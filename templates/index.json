@@ -1,5 +1,101 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
+    "custom_banner_kF9GR8": {
+      "type": "custom-banner",
+      "name": "Custom Banner",
+      "settings": {
+        "color_scheme": "scheme-2",
+        "logo_text": "TISSO VISON",
+        "announcement_text": "Find the ideal gift for your loved ones.",
+        "gift_label": "CHOOSE GIFT",
+        "gift_link": "",
+        "image_desktop": "shopify://shop_images/Group_1000007949_no_text.png",
+        "image_mobile": "shopify://shop_images/Frame_1.png",
+        "heading": "The Gift Guide",
+        "description": "<p>Discover Joy: Your Ultimate Holiday Gift Destination. Explore our curated selection and find the perfect gifts to delight your loved ones this holiday season.</p>",
+        "description_mobile": "<p>Discover Joy: Your Ultimate Holiday Gift Destination.</p>",
+        "shop_label": "SHOP NOW",
+        "shop_link": "",
+        "strip_text": "SUSTAINABLE, ETHICALLY MADE CLOTHES IN SIZES XXS TO 6XL",
+        "strip_text_mobile": "SUSTAINABLE, ETHICALLY MADE ACTIVEWEAR"
+      }
+    },
+    "custom_grid_zmgmVr": {
+      "type": "custom-grid",
+      "blocks": {
+        "product_Lx8TpR": {
+          "type": "product",
+          "settings": {
+            "product": "black-leather-bag",
+            "icon_x": 50,
+            "icon_y": 71
+          }
+        },
+        "product_kCfhfU": {
+          "type": "product",
+          "settings": {
+            "product": "blue-silk-tuxedo",
+            "icon_x": 32,
+            "icon_y": 75
+          }
+        },
+        "product_gkETGe": {
+          "type": "product",
+          "settings": {
+            "product": "chequered-red-shirt",
+            "icon_x": 50,
+            "icon_y": 50
+          }
+        },
+        "product_BPVAQ9": {
+          "type": "product",
+          "settings": {
+            "product": "classic-leather-jacket",
+            "icon_x": 50,
+            "icon_y": 50
+          }
+        },
+        "product_yeM6mH": {
+          "type": "product",
+          "settings": {
+            "product": "classic-varsity-top",
+            "icon_x": 50,
+            "icon_y": 50
+          }
+        },
+        "product_zAjji8": {
+          "type": "product",
+          "settings": {
+            "product": "dark-denim-top",
+            "icon_x": 50,
+            "icon_y": 50
+          }
+        }
+      },
+      "block_order": [
+        "product_Lx8TpR",
+        "product_kCfhfU",
+        "product_gkETGe",
+        "product_BPVAQ9",
+        "product_yeM6mH",
+        "product_zAjji8"
+      ],
+      "name": "Custom Grid",
+      "settings": {
+        "color_scheme": "",
+        "heading": "Tisso vison in the wild",
+        "bundle_handle": "dark-winter-jacket"
+      }
+    },
     "image_banner": {
       "type": "image-banner",
       "blocks": {
@@ -26,36 +122,37 @@
         "heading",
         "button"
       ],
+      "disabled": true,
       "settings": {
         "image_overlay_opacity": 40,
         "image_height": "large",
-        "desktop_content_position": "bottom-center",
-        "show_text_box": false,
         "image_behavior": "none",
+        "desktop_content_position": "bottom-center",
         "desktop_content_alignment": "center",
+        "show_text_box": false,
         "color_scheme": "scheme-3",
-        "mobile_content_alignment": "center",
         "stack_images_on_mobile": false,
+        "mobile_content_alignment": "center",
         "show_text_below": false
       }
     },
     "featured_collection": {
       "type": "featured-collection",
+      "disabled": true,
       "settings": {
+        "collection": "all",
+        "products_to_show": 8,
         "title": "Featured products",
         "heading_size": "h2",
         "description": "",
         "show_description": false,
         "description_style": "body",
-        "collection": "all",
-        "products_to_show": 8,
         "columns_desktop": 4,
-        "color_scheme": "scheme-1",
+        "enable_desktop_slider": false,
         "full_width": false,
         "show_view_all": true,
         "view_all_style": "solid",
-        "enable_desktop_slider": false,
-        "swipe_on_mobile": false,
+        "color_scheme": "scheme-1",
         "image_ratio": "adapt",
         "image_shape": "default",
         "show_secondary_image": true,
@@ -63,12 +160,15 @@
         "show_rating": false,
         "quick_add": "none",
         "columns_mobile": "2",
+        "swipe_on_mobile": false,
         "padding_top": 44,
         "padding_bottom": 36
       }
     }
   },
   "order": [
+    "custom_banner_kF9GR8",
+    "custom_grid_zmgmVr",
     "image_banner",
     "featured_collection"
   ]

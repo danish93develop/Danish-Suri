@@ -1,0 +1,472 @@
+/* ------------------------------------------------------------------
+   Custom Banner styles
+   - hero aspect ratio 1920:1040
+   - content left offset 9.84% of viewport width
+   - heading top at 55.2% of hero height
+   ------------------------------------------------------------------ */
+
+.section-custom-banner {
+  /* Text and background come from the section's Dawn color scheme;
+     the bar gray and CTA yellow are brand accents from the design. */
+  --cb-color-text: rgb(var(--color-foreground));
+  --cb-color-bar: #f5f5f5;
+  --cb-color-yellow: #fff544;
+}
+
+.cb {
+  font-family: var(--font-body-family);
+  color: var(--cb-color-text);
+  background: rgb(var(--color-background));
+}
+
+/* ---------- 1. Top bar ---------- */
+
+.cb__topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  height: 4.45vw;               /* 64px @ 1440 */
+  padding: 0 3.1vw;
+  background: var(--cb-color-bar);
+}
+
+.cb__menu {
+  display: none; /* mobile only */
+  line-height: 0;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: #000000;
+}
+
+.cb__logo {
+  font-family: var(--font-heading-family);
+  font-size: 1.53vw;            /* 22px @ 1440 */
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-decoration: none;
+  color: inherit;
+  white-space: nowrap;
+}
+
+.cb__announcement {
+  margin: 0;
+  font-size: 1.11vw;            /* 16px @ 1440 */
+  text-align: center;
+  flex: 1;
+}
+
+/* ---------- Buttons (shared) ----------
+   Built on Dawn's .button class: colors come from the section's
+   color scheme (--color-button / --color-button-text), size comes
+   from padding rather than fixed width/height. Dawn's min-size and
+   border chrome are reset so the Figma proportions hold. */
+
+.cb__btn.button {
+  position: relative;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(10px, 1vw, 15px);
+  min-width: 0;
+  min-height: 0;
+  padding: clamp(13px, 1.05vw, 16px) clamp(26px, 2.4vw, 35px);
+  border-radius: 0;
+  font-size: clamp(12px, 0.9vw, 13px);
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.cb__btn.button::after {
+  content: none;
+  box-shadow: none;
+}
+
+/*
+ * Sweep animation on Dawn buttons:
+ *   SHOP NOW (scheme solid button): sweeps to the accent yellow,
+ *   label swaps to the scheme button color.
+ *   CHOOSE GIFT (accent yellow): sweeps to the scheme button color,
+ *   label swaps to the scheme button label color.
+ */
+.cb__btn.button::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;                   /* Dawn sets .button::before to -1 (its
+                                   shadow layer), which would hide the
+                                   sweep behind the button background */
+  border-radius: 0;
+  box-shadow: none;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.35s ease;
+}
+
+.cb__btn.button:hover::before,
+.cb__btn.button:focus-visible::before {
+  transform: scaleX(1);
+}
+
+.cb__btn .cb__btn-label,
+.cb__btn .cb__icon-arrow {
+  position: relative;
+  z-index: 1;
+  transition: color 0.35s ease;
+}
+
+.cb__icon-arrow {
+  width: clamp(22px, 1.95vw, 28px);
+  height: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cb__btn.button::before,
+  .cb__btn .cb__btn-label,
+  .cb__btn .cb__icon-arrow {
+    transition: none;
+  }
+}
+
+.cb__btn--gift.button {
+  background: var(--cb-color-yellow);
+  color: rgb(var(--color-button));
+}
+
+.cb__btn--gift.button::before {
+  background: rgb(var(--color-button));
+}
+
+.cb__btn--gift.button:hover,
+.cb__btn--gift.button:focus-visible {
+  color: rgb(var(--color-button-text));
+}
+
+.cb__btn--shop.button::before {
+  background: var(--cb-color-yellow);
+}
+
+.cb__btn--shop.button:hover,
+.cb__btn--shop.button:focus-visible {
+  color: rgb(var(--color-button));
+}
+
+/* ---------- 2. Hero ---------- */
+
+.cb__hero {
+  position: relative;
+  /* Height comes from the illustration's own ratio so the text
+     always lands on the same clear pocket of the drawing */
+  aspect-ratio: 1920 / 1040;
+  overflow: hidden;
+}
+
+.cb__illustration {
+  position: absolute;
+  inset: 0;
+}
+
+.cb__illustration-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+}
+
+.cb__illustration-img--mobile {
+  display: none;
+}
+
+.cb__btn--shop-mobile.button {
+  display: none;
+}
+
+.cb__content {
+  position: absolute;
+  z-index: 1;
+  left: 9.84%;
+  bottom: 5%;
+  width: 34.5vw;
+}
+
+.cb__heading {
+  margin: 0;
+  font-family: var(--font-heading-family);
+  font-size: 4.5rem;             /* 69px @ 1440 */
+  font-weight: 500;
+  line-height: 1;
+  white-space: normal;
+}
+
+.cb__description {
+  margin: 3vw 0 3.25vw;         /* gaps measured from the frame */
+  width: 29.4vw;
+  font-size: 1.93rem;            /* 18px @ 1440 */
+  line-height: 1.6;
+}
+
+.cb__description p {
+  margin: 0;
+}
+
+.cb__description--mobile {
+  display: none;
+}
+
+/* ---------- 3. Bottom strip ---------- */
+
+.cb__strip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 2.34vw;               /* 34px @ 1440 */
+  background: var(--cb-color-bar);
+}
+
+.cb__strip-text {
+  margin: 0;
+  font-size: 0.97vw;            /* 14px @ 1440 */
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.cb__strip-text--mobile {
+  display: none;
+}
+
+
+
+/* ------------------------------------------------------------------
+    Responsive
+   ------------------------------------------------------------------ */
+
+
+
+/* ---------- tab view ---------- */ 
+
+ @media screen and (max-width: 1023px) {
+  .cb__heading {
+    font-size: 35px;
+ }
+ .cb__description {
+    font-size: 16px;
+ }
+ .cb__description {
+    margin: 2vw 0;
+}
+/* .cb__content {
+  top: 50%;
+} */
+.cb__content {
+    bottom: 5%;
+}
+.cb__description.cb__description--desktop {
+    margin: 2vw 0;
+}
+} 
+
+/* ---------- Mobile view---------- */
+@media screen and (max-width: 749px) {
+
+  .cb__topbar {
+    position: relative;
+    justify-content: flex-start;
+    height: 70px;
+    padding: 0 20px;
+    background: #ffffff;
+  }
+
+  .cb__menu {
+    display: block;
+  }
+
+  .cb__menu svg {
+    width: 22px;
+    height: auto;
+  }
+  .cb__announcement {
+    display: none;
+  }
+
+  /* Hide the gift CTA in the top bar only; the drawer's copy stays */
+  .cb__topbar .cb__btn--gift.button {
+    display: none;
+  }
+
+  .cb__logo {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 20px;
+  }
+
+  .cb__hero {
+    display: flex;
+    flex-direction: column;
+    aspect-ratio: auto;
+    overflow: visible;
+  }
+
+  .cb__content {
+    position: static;
+    order: 1;
+    width: auto;
+    padding: 36px 24px 20px;
+    text-align: center;
+  }
+
+  .cb__description {
+    width: auto;
+    margin: 16px 0 0;
+    font-size: 15px;
+  }
+
+  .cb__description--desktop {
+    display: none;
+  }
+
+  .cb__description--mobile {
+    display: block;
+  }
+
+  .cb__btn--shop-desktop.button {
+    display: none;
+  }
+
+  .cb__illustration {
+    order: 2;
+    position: relative;
+    inset: auto;
+    min-height: 420px;
+  }
+
+  .cb__illustration-img--desktop {
+    display: none;
+  }
+
+  .cb__illustration-img--mobile {
+    display: block;
+    position: absolute;
+    inset: 0;
+  }
+
+  .cb__btn--shop-mobile.button {
+    display: inline-flex;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 16px 42px;
+    font-size: 13px;
+    white-space: nowrap;
+  }
+
+  .cb__btn--shop-mobile .cb__icon-arrow {
+    width: 28px;
+  }
+
+  .cb__strip {
+    height: 40px;
+  }
+
+  .cb__strip-text {
+    font-size: 14px;
+  }
+
+  .cb__strip-text--desktop {
+    display: none;
+  }
+
+  .cb__strip-text--mobile {
+    display: block;
+  }
+  .cb__heading{
+    font-size:30px;
+  }
+}
+
+/* ---------- Mobile drawer (announcement + gift button) ---------- */
+
+.cb__drawer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 20;
+  background: var(--cb-color-bar);
+  transform: translateY(-100%);
+  transition: transform 0.3s ease;
+}
+
+.cb__drawer.is-open {
+  transform: translateY(0);
+}
+
+.cb__drawer-head {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 70px;
+  padding: 0 20px;
+  background: #ffffff;
+}
+
+.cb__drawer-logo {
+  position: static;
+  transform: none;
+  font-size: 20px;
+}
+
+.cb__drawer-close {
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  border: 0;
+  background: none;
+  font-size: 26px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.cb__drawer-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  padding: 22px 20px 28px;
+}
+
+.cb__drawer-text {
+  margin: 0;
+  font-size: 15px;
+  text-align: center;
+}
+
+.cb__drawer-gift.button {
+  display: inline-flex;
+  padding: 14px 56px;
+  gap: 14px;
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.cb__drawer-gift .cb__icon-arrow {
+  width: 28px;
+}
+
+.cb__drawer-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 19;
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.cb-drawer-open {
+  overflow: hidden;
+}
