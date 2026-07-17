@@ -246,9 +246,6 @@
     font-size: 35px;
  }
  .cb__description {
-    font-size: 16px;
- }
- .cb__description {
     margin: 2vw 0;
 }
 /* .cb__content {
@@ -258,7 +255,8 @@
     bottom: 5%;
 }
 .cb__description.cb__description--desktop {
-    margin: 2vw 0;
+     margin: 1vw 0;
+     font-size: 14x;
 }
 } 
 
