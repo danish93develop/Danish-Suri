@@ -85,10 +85,8 @@
 }
 
 /* ------------------------------------------------------------------
-   Popup
-   Centered card over a dimmed overlay. Matches the design: image +
-   info row, color as button pair, size as native select, full-width
-   add-to-cart.
+   Popup (compact card matching the Figma spec: 310px wide,
+   small type, tight spacing; scrolls on short viewports)
    ------------------------------------------------------------------ */
 
 .cg__popup-overlay {
@@ -109,19 +107,21 @@
 .cg__popup {
   position: relative;
   width: 100%;
-  max-width: 340px;
+  max-width: 310px;
+  max-height: 92vh;
+  overflow-y: auto;
   background: #ffffff;
-  padding: 28px 26px 26px;
+  padding: 34px 20px 22px;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.18);
 }
 
 .cg__popup-close {
   position: absolute;
-  top: 12px;
-  right: 14px;
+  top: 10px;
+  right: 12px;
   border: none;
   background: none;
-  font-size: 22px;
+  font-size: 20px;
   line-height: 1;
   cursor: pointer;
   color: #000000;
@@ -129,13 +129,14 @@
 
 .cg__popup-top {
   display: flex;
-  gap: 16px;
-  margin-bottom: 20px;
+  gap: 12px;
+  margin-bottom: 14px;
 }
 
 .cg__popup-img {
-  flex: 0 0 36%;
-  height: auto;
+  flex: 0 0 112px;
+  width: 112px;
+  height: 132px;
   object-fit: cover;
 }
 
@@ -144,36 +145,34 @@
 }
 
 .cg__popup-title {
-  margin: 0 0 8px;
-  font-size: 16px;
+  margin: 0 0 6px;
+  font-size: 14px;
   font-weight: 400;
 }
 
 .cg__popup-price {
-    margin: 0 0 8px;
-    font-size: 16px;
-    color: #000;
-    font-family: 'var(--font-body-style)';
+  margin: 0 0 6px;
+  font-size: 15px;
+  color: #000;
 }
 
 .cg__popup-desc {
   margin: 0;
-  font-size: 14px;
-  line-height: 1.5;
+  font-size: 11.5px;
+  line-height: 1.45;
   color: #444444;
 }
 
 /* Option groups injected by JS */
 .cg__opt {
-  margin-bottom: 16px;
+  margin-bottom: 12px;
 }
 
 .cg__opt-label {
-    display: block;
-    margin-bottom: 8px;
-    font-size: 14px;
-    font-family: 'var(--font-body-style)';
-    color: #333333;
+  display: block;
+  margin-bottom: 6px;
+  font-size: 12px;
+  color: #333333;
 }
 
 /* Color/size button row with a sliding highlight pill */
@@ -201,19 +200,17 @@
 .cg__opt-btn {
   position: relative;
   z-index: 1;
-  overflow: visible;
   display: flex;
   align-items: center;
-  padding: 14px 12px 14px 20px;
+  padding: 9px 10px 9px 16px;
   border: none;
   border-right: 1px solid #000000;
   background: transparent;
   color: #000000;
   font: inherit;
-  font-size: 14px;
+  font-size: 13px;
   text-align: left;
   cursor: pointer;
-  font-family: 'var(--font-body-style)';
 }
 
 .cg__opt-btn .cg__opt-btn-text {
@@ -226,13 +223,12 @@
   color: #ffffff;
 }
 
-/* Vertical colour bar flush to the button's left edge (Figma style) */
 .cg__opt-swatch {
   position: absolute;
   left: 0;
   top: 0;
   bottom: 0;
-  width: 7px;
+  width: 5px;
   z-index: 2;
   border-right: 1px solid rgba(0, 0, 0, 0.35);
 }
@@ -244,22 +240,21 @@
 /* Size: native select with a divider line + chevron on the right */
 .cg__opt-select {
   width: 100%;
-  padding: 14px 56px 14px 14px;
+  padding: 10px 46px 10px 12px;
   border: 1px solid #000000;
   background-color: #ffffff;
   font: inherit;
-  font-size: 16px;
+  font-size: 13px;
   cursor: pointer;
   appearance: none;
   -webkit-appearance: none;
-  /* chevron (right) + vertical divider line to its left */
   background-image:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='8' viewBox='0 0 14 8'%3E%3Cpath d='M1 1l6 6 6-6' stroke='%23000' fill='none' stroke-width='1.5'/%3E%3C/svg%3E"),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='7' viewBox='0 0 12 7'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23000' fill='none' stroke-width='1.4'/%3E%3C/svg%3E"),
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1' height='48' viewBox='0 0 1 48'%3E%3Crect width='1' height='48' fill='%23000'/%3E%3C/svg%3E");
   background-repeat: no-repeat, no-repeat;
-  background-position: right 18px center, right 48px center;
-  font-family: 'var(--font-body-style)';
+  background-position: right 14px center, right 40px center;
 }
+
 .cg__opt-select:hover,
 .cg__opt-select:focus {
   box-shadow: none;
@@ -269,13 +264,12 @@
 /* Add to cart: reuses banner .cb__btn sweep; full width here */
 .cg__popup-add {
   width: 100%;
-  height: 54px;
-  margin-top: 8px;
+  height: 44px;
+  margin-top: 10px;
   background: #000000;
   color: #ffffff;
   border: none;
-  font-size: 16px;
-  font-family: 'var(--font-body-style)';
+  font-size: 13px;
   letter-spacing: 0.08em;
 }
 
@@ -295,7 +289,6 @@
 
 @media screen and (max-width: 749px) {
   .cg__popup {
-    max-width: 320px;
+    max-width: 300px;
   }
-
 }
