@@ -109,7 +109,7 @@
       {%- endif -%}
       {%- if section.settings.shop_label != blank -%}
         <a href="{{ section.settings.shop_link | default: routes.all_products_collection_url }}"
-           class="cb__btn cb__btn--shop cb__btn--shop-desktop">
+           class="cb__btn cb__btn--shop cb__btn--shop-desktop button button--primary">
           <span class="cb__btn-label">{{ section.settings.shop_label | escape }}</span>
           {%- render 'icon-arrow-right-custom' -%}
         </a>
