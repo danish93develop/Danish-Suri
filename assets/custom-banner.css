@@ -7,14 +7,13 @@
    ------------------------------------------------------------------ */
 
 .section-custom-banner {
-  --cb-font-sans: 'Jost', 'Century Gothic', 'Poppins', sans-serif;
   --cb-color-text: #000000;
   --cb-color-bar: #f5f5f5;
   --cb-color-yellow: #fff544;
 }
 
 .cb {
-  font-family: var(--cb-font-sans);
+  font-family: var(--font-heading-family);
   color: var(--cb-color-text);
   background: #ffffff;
 }
@@ -189,7 +188,7 @@
 .cb__description {
   margin: 3vw 0 3.25vw;         /* gaps measured from the frame */
   width: 29.4vw;
-  font-size: 1.95rem;            /* 18px @ 1440 */
+  font-size: 2.93rem;            /* 18px @ 1440 */
   line-height: 1.6;
 }
 
