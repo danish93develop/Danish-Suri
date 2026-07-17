@@ -229,44 +229,15 @@
 /* ------------------------------------------------------------------
     Responsive
    ------------------------------------------------------------------ */
-/*---------- Desktop view (min-width:1500px) ---------- */
-@media screen and (min-width: 1500px) {
-.cb__description {
-    margin: 1vw 0vw;
-    font-size: 2.5rem;
-}
-.cb__heading {
-    font-size: 5.5rem;
-}
-.cb__content {
-    bottom: 15%;
-}
-}
-/* ---------- laptop view---------- */ 
-@media screen and (min-width:1025px) and (max-width:1240px){
-.cb__heading {
-    font-size: 4.5rem;
-}
-  .cb__description.cb__description--desktop {
-     margin: 2.5vw 0;
-     font-size: 14px;
-} 
-.cb__description {
-    margin: 2vw 0;
-}
-}
 /* ---------- tab view ---------- */ 
 
- @media screen and (max-width: 1024px) {
+ @media screen and (max-width: 992px) {
   .cb__heading {
     font-size: 35px;
  }
  .cb__description {
     margin: 2vw 0;
 }
-/* .cb__content {
-  top: 50%;
-} */
 .cb__content {
     bottom: 5%;
 }
