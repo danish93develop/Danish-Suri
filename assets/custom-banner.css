@@ -239,9 +239,9 @@
  .cb__description {
     margin: 2vw 0;
 }
-.cb__content {
+/* .cb__content {
   top: 50%;
-}
+} */
 .cb__content {
     bottom: 5%;
 }

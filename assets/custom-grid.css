@@ -216,7 +216,6 @@
   font-family: 'var(--font-body-style)';
 }
 
-.cg__opt-btn .cg__opt-swatch,
 .cg__opt-btn .cg__opt-btn-text {
   position: relative;
   z-index: 1;
