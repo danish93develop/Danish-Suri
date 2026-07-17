@@ -242,7 +242,7 @@
 /* ---------- laptop view---------- */ 
 @media screen and (min-width:1025px) and (max-width:1240px){
 .cb__description.cb__description--desktop {
-     margin: 1vw 0;
+     margin: 2vw 0;
      font-size: 14px;
 } 
 .cb__description {
