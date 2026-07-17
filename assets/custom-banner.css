@@ -97,6 +97,11 @@
   content: '';
   position: absolute;
   inset: 0;
+  z-index: 0;                   /* Dawn sets .button::before to -1 (its
+                                   shadow layer), which would hide the
+                                   sweep behind the button background */
+  border-radius: 0;
+  box-shadow: none;
   transform: scaleX(0);
   transform-origin: left center;
   transition: transform 0.35s ease;
