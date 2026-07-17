@@ -267,7 +267,10 @@
 
 /* Add to cart on Dawn's .button: scheme colors, padding-based size.
    Dawn's min-size and border chrome reset so the compact popup holds. */
-.cg__popup-add.button {
+/* Add to cart on Dawn's .button: scheme colors, padding-based size.
+   Scoped under .cg so these win over the banner's .cb__btn.button
+   base regardless of stylesheet order. */
+.cg .cg__popup-add.button {
   width: 100%;
   min-width: 0;
   min-height: 0;
@@ -276,16 +279,17 @@
   border: none;
   border-radius: 0;
   font-size: 13px;
+  gap: 12px;
   letter-spacing: 0.08em;
 }
 
-.cg__popup-add.button::before {
+.cg .cg__popup-add.button::before {
   z-index: 0;
   border-radius: 0;
   box-shadow: none;
 }
 
-.cg__popup-add.button::after {
+.cg .cg__popup-add.button::after {
   box-shadow: none;
   content: none;
 }
