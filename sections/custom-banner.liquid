@@ -31,7 +31,7 @@
     {%- endif -%}
 
     {%- if section.settings.gift_label != blank -%}
-      <a href="{{ section.settings.gift_link | default: '#' }}" class="cb__btn cb__btn--gift">
+      <a href="{{ section.settings.gift_link | default: '#' }}" class="cb__btn button cb__btn--gift">
         <span class="cb__btn-label">{{ section.settings.gift_label | escape }}</span>
         {%- render 'icon-arrow-right-custom' -%}
       </a>
@@ -90,7 +90,7 @@
 
       {%- if section.settings.shop_label != blank -%}
         <a href="{{ section.settings.shop_link | default: routes.all_products_collection_url }}"
-           class="cb__btn cb__btn--shop cb__btn--shop-mobile">
+           class="cb__btn cb__btn--shop cb__btn--shop-mobile button button--primary">
           <span class="cb__btn-label">{{ section.settings.shop_label | escape }}</span>
           {%- render 'icon-arrow-right-custom' -%}
         </a>

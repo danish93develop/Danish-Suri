@@ -150,7 +150,7 @@
 
 .cg__popup-title {
   margin: 0 0 6px;
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 400;
 }
 
@@ -162,7 +162,7 @@
 
 .cg__popup-desc {
   margin: 0;
-  font-size: 14px;
+  font-size: 11.5px;
   line-height: 1.45;
   color: #444444;
 }
@@ -265,16 +265,23 @@
   outline: none;
 }
 
-/* Add to cart: reuses banner .cb__btn sweep; full width here */
-.cg__popup-add {
+/* Add to cart on Dawn's .button: scheme colors, padding-based size.
+   Dawn's min-size and border chrome reset so the compact popup holds. */
+.cg__popup-add.button {
   width: 100%;
-  height: 44px;
+  min-width: 0;
+  min-height: 0;
+  padding: 15px 10px;
   margin-top: 10px;
-  background: #000000;
-  color: #ffffff;
   border: none;
+  border-radius: 0;
   font-size: 13px;
   letter-spacing: 0.08em;
+}
+
+.cg__popup-add.button::after {
+  box-shadow: none;
+  content: none;
 }
 
 .cg__popup-add::before {
