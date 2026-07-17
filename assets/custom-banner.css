@@ -229,7 +229,16 @@
 /* ------------------------------------------------------------------
     Responsive
    ------------------------------------------------------------------ */
-
+/*---------- Desktop view (min-width:1400px) ---------- */
+@media screen and (min-width: 1400px) {
+.cb__description {
+    margin: 2vw 0 3.25vw;
+    font-size: 2.5rem;
+}
+.cb__heading {
+    font-size: 5.5rem;
+}
+}
 /* ---------- tab view ---------- */ 
 
  @media screen and (max-width: 1023px) {
