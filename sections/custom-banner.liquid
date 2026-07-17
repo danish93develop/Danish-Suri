@@ -7,7 +7,7 @@
 {{ 'custom-banner.css' | asset_url | stylesheet_tag }}
 <script src="{{ 'custom-banner.js' | asset_url }}" defer></script>
 
-<div class="cb" id="CustomBanner-{{ section.id }}">
+<div class="cb color-{{ section.settings.color_scheme }}" id="CustomBanner-{{ section.id }}">
 
   <div class="cb__topbar">
     <button
@@ -134,6 +134,12 @@
   "tag": "section",
   "class": "section-custom-banner",
   "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
     { "type": "header", "content": "Top bar" },
     { "type": "text", "id": "logo_text", "label": "Logo text", "default": "TISSO VISON" },
     { "type": "text", "id": "announcement_text", "label": "Announcement text", "default": "Find the ideal gift for your loved ones." },

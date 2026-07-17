@@ -9,9 +9,11 @@
 <script src="{{ 'custom-grid.js' | asset_url }}" defer></script>
 
 <div
-  class="cg"
+  class="cg color-{{ section.settings.color_scheme }}"
   id="CustomGrid-{{ section.id }}"
   data-bundle-handle="{{ section.settings.bundle_handle }}">
+
+  <div class="cg__inner page-width">
 
   {%- if section.settings.heading != blank -%}
     <h2 class="cg__heading">{{ section.settings.heading | escape }}</h2>
@@ -87,6 +89,8 @@
     {%- endfor -%}
   </div>
 
+  </div>{%- comment -%} /.cg__inner {%- endcomment -%}
+
   {% comment %} Shared popup shell, filled in by JS on open {% endcomment %}
   <div class="cg__popup-overlay" data-cg-overlay hidden>
     <div class="cg__popup" role="dialog" aria-modal="true" aria-label="Product quick view" data-cg-popup>
@@ -119,6 +123,12 @@
   "class": "section-custom-grid",
   "max_blocks": 6,
   "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
     { "type": "text", "id": "heading", "label": "Heading", "default": "Tisso vison in the wild" },
     {
       "type": "text",

@@ -1,12 +1,15 @@
-
 /* ------------------------------------------------------------------
    Custom Grid layout
    ------------------------------------------------------------------ */
 
 .cg {
-  max-width: 74%;
-  margin: 0 auto;
   padding: 90px 0;
+}
+
+.cg__inner {
+  /* Dawn's page-width handles max-width + side padding.
+     margin auto keeps it centered. */
+  margin: 0 auto;
 }
 
 .cg__heading {
@@ -63,8 +66,7 @@
 
 @media screen and (max-width: 749px) {
   .cg {
-    max-width: 100%;
-    padding: 48px 16px;
+    padding: 48px 0;
   }
 
   .cg__heading {
@@ -107,7 +109,7 @@
 .cg__popup {
   position: relative;
   width: 100%;
-  max-width: 340px;
+  max-width: 400px;
   background: #ffffff;
   padding: 28px 26px 26px;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.18);
