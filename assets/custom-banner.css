@@ -229,8 +229,8 @@
 /* ------------------------------------------------------------------
     Responsive
    ------------------------------------------------------------------ */
-/*---------- Desktop view (min-width:1400px) ---------- */
-@media screen and (min-width: 1400px) {
+/*---------- Desktop view (min-width:1500px) ---------- */
+@media screen and (min-width: 1500px) {
 .cb__description {
     margin: 2vw 0 3.25vw;
     font-size: 2.5rem;
