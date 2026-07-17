@@ -232,7 +232,7 @@
 /*---------- Desktop view (min-width:1500px) ---------- */
 @media screen and (min-width: 1500px) {
 .cb__description {
-    margin: 2vw 0 3.25vw;
+    margin: 1vw 0vw;
     font-size: 2.5rem;
 }
 .cb__heading {
