@@ -239,9 +239,19 @@
     font-size: 5.5rem;
 }
 }
+/* ---------- laptop view---------- */ 
+@media screen and (min-width:1025px) and (max-width:1240px){
+.cb__description.cb__description--desktop {
+     margin: 1vw 0;
+     font-size: 14px;
+} 
+.cb__description {
+    margin: 2vw 0;
+}
+}
 /* ---------- tab view ---------- */ 
 
- @media screen and (max-width: 1023px) {
+ @media screen and (max-width: 1024px) {
   .cb__heading {
     font-size: 35px;
  }
