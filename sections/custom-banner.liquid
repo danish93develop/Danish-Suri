@@ -54,7 +54,7 @@
       {%- endif -%}
 
       {%- if section.settings.gift_label != blank -%}
-        <a href="{{ section.settings.gift_link | default: '#' }}" class="cb__btn cb__btn--gift cb__drawer-gift">
+        <a href="{{ section.settings.gift_link | default: '#' }}" class="cb__btn button cb__btn--gift cb__drawer-gift">
           <span class="cb__btn-label">{{ section.settings.gift_label | escape }}</span>
           {%- render 'icon-arrow-right-custom' -%}
         </a>

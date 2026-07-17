@@ -60,7 +60,7 @@
 
 /* ---------- Buttons (shared) ---------- */
 
-.cb__btn {
+.cb__btn.button  {
   position: relative;
   overflow: hidden;
   display: inline-flex;
@@ -112,9 +112,7 @@
   }
 }
 
-.cb__btn--gift {
-  width: 14.3vw;                /* 206px @ 1440 */
-  height: 3vw;                  /* 43px @ 1440 */
+.cb__btn--gift {              /* 43px @ 1440 */
   background: var(--cb-color-yellow);
   color: #000000;
 }
@@ -129,9 +127,6 @@
 }
 
 .cb__btn--shop {
-  width: 13.5vw;                /* 194px @ 1440 */
-  height: 3vw;
-  background: #000000;
   color: #ffffff;
 }
 
@@ -177,8 +172,6 @@
   left: 9.84%;
   bottom: 5%;
   width: 34.5vw;
-  background:#fff;
-  padding:15px;
 }
 
 .cb__heading {
@@ -231,21 +224,29 @@
 /* ------------------------------------------------------------------
     Responsive
    ------------------------------------------------------------------ */
+
+
+
 /* ---------- tab view ---------- */ 
 
- @media screen and (max-width: 992px) {
+ @media screen and (max-width: 1023px) {
   .cb__heading {
     font-size: 35px;
  }
  .cb__description {
+    font-size: 16px;
+ }
+ .cb__description {
     margin: 2vw 0;
 }
+/* .cb__content {
+  top: 50%;
+} */
 .cb__content {
     bottom: 5%;
 }
 .cb__description.cb__description--desktop {
-     margin: 1vw 0;
-     font-size: 14px;
+    margin: 2vw 0;
 }
 } 
 
