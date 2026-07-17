@@ -173,13 +173,13 @@
   position: absolute;
   z-index: 1;
   left: 9.84%;
-  bottom: 10%;
+  bottom: 5%;
   width: 34.5vw;
 }
 
 .cb__heading {
   margin: 0;
-  font-size: 7.5rem;             /* 69px @ 1440 */
+  font-size: 6.5rem;             /* 69px @ 1440 */
   font-weight: 500;
   line-height: 1;
   white-space: normal;
