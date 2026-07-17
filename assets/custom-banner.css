@@ -238,6 +238,9 @@
 .cb__heading {
     font-size: 5.5rem;
 }
+.cb__content {
+    bottom: 10%;
+}
 }
 /* ---------- laptop view---------- */ 
 @media screen and (min-width:1025px) and (max-width:1240px){
